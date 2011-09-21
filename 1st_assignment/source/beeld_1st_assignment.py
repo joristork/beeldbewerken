@@ -14,6 +14,9 @@
 __author__ = "Joris Stork, Lucas Swartsenburg"
 
 import sys
+from pylab import *
+from numpy import load
+import time
 
 class AssignmentOne():
     """
@@ -25,7 +28,7 @@ class AssignmentOne():
         """ The class remembers the last: histogram, plot and input image """
         self.last_timings_plot = None
         self.last_histogram = None
-        self.low_contrast_image = None
+        self.low_contrast_image = load("../images/lowcontrast.npy")
 
 
     def contrast_stretch(self):
@@ -36,6 +39,12 @@ class AssignmentOne():
         def cst(f):
             pass
         print '\nContrast stretching assignment (to be implemented)'
+        print '\nHere is the picture:'
+        imshow(self.low_contrast_image, vmin=0, vmax=1)
+        gray()
+        title('The low contrast lady')
+        savefig('../images/shown_image.png')
+        show()
         sys.exit(0)
 
 
