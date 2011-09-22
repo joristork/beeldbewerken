@@ -31,6 +31,7 @@ def contrast_stretching_exercise():
     bottom-left. Finally, the corresponding histogram is plotted bottom-right.
     
     """
+
     def cst(image_array):
         """ The actual contrast stretching algorithm """
         maxval = np.amax(image_array)
@@ -68,8 +69,41 @@ def linear_filtering_exercise():
    
     
     """
+
     def linfilter1(f, w):
-        print '\nLinear filter assignment (to be implemented)'
+        """ First linear filter implementation """
+        
+        def value(i,j):
+            """ Returns value at (i,j) if it's a valid index, else 0 """ 
+            if i < 0 or i >= M or j < 0 or j >= N:
+                return 0
+            return f[i,j]
+
+        g = empty(f.shape, dtype=f.dtype)
+        M, N = f.shape
+        K, L = (array(w.shape) - 1) / 2
+
+        for j in xrange(N):
+            for i in xrange(M):
+                summed = 0
+                for k in xrange(-K, K+1):
+                    for l in xrange(-L, L+1):
+                        summed += value(i + k, j + l) * w[k + K, l + L]
+                g[i,j] = summed
+        return g
+
+    def linfilter2(f, w):
+        """ Second linear filter implementation """
+        pass
+
+    def linfilter3(f, w):
+        """ Third linear filter implementation """
+        pass
+
+    def linfilter4(f, w):
+        """ Fourth linear filter implementation """
+        pass
+
     menu()
 
 
