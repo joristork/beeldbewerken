@@ -7,45 +7,68 @@
             Beeldbewerken lab class as part of the BSc in Informatics at the
             University of Amsterdam.
 
+            In line with the development guidelines on http://goo.gl/yvb6B we do
+            not resort to pylab for this script.
 
-.. moduleauthor:: Joris Stork <joris@wintermute.eu>, Lucas Swartsenburg <luuk@noregular.com>
+.. moduleauthor:: Joris Stork <joris@wintermute.eu>, Lucas Swartsenburg
+<luuk@noregular.com>
 
 """
 __author__ = "Joris Stork, Lucas Swartsenburg"
 
 import sys
-from pylab import *
-from numpy import load
-import time
+import matplotlib.pyplot as plt
+import numpy as np
 
 class AssignmentOne():
-    """
-
-    """
+    """ Why a class? Object orientation can come in handy, e.g. for re-use """
 
 
     def __init__(self):
-        """ The class remembers the last: histogram, plot and input image """
-        self.last_timings_plot = None
-        self.last_histogram = None
-        self.low_contrast_image = load("../images/lowcontrast.npy")
+        """ No reason to burden the object for now. Maybe plots in future. """
 
 
     def contrast_stretch(self):
         """
-        
+        This function displays builds and then displays subplots in a 2x2
+        arrangment to demonstrate an implementation of contrast stretching.
+        First the low contrast image is loaded (with automatic stretching
+        disabled) and set to a greyscale colourmap before being plotted
+        top-left. Second, a histogram of the greyscale values of loaded image is
+        plotted top-right. Then, our cst function is applied to the loaded
+        image, and the resulting image is plotted bottom-left. Finally, the
+        corresponding histogram is plotted bottom-right.
         
         """
-        def cst(f):
-            pass
-        print '\nContrast stretching assignment (to be implemented)'
-        print '\nHere is the picture:'
-        imshow(self.low_contrast_image, vmin=0, vmax=1)
-        gray()
-        title('The low contrast lady')
-        savefig('../images/shown_image.png')
-        show()
-        sys.exit(0)
+        def cst(image_array):
+            """ The actual contrast stretching algorithm """
+            maxval = np.amax(image_array)
+            minval = np.amin(image_array)
+            return ((image_array-minval) / (maxval-minval))
+        print '\nContrast stretching assignment\n'
+        raw_input('You will now be shown a figure of results (press enter):')
+        plt.subplot(2,2,1)
+        plt.title('The low contrast lady')
+        image_array = np.load("../images/lowcontrast.npy")
+        plt.imshow(image_array, vmin=0, vmax=1)
+        plt.gray()
+        plt.subplot(2,2,2)
+        plt.title('Her histogram')
+        hist_values, bin_edges, patch = plt.hist(image_array.flatten(), bins=40)
+        plt.axis([0,1,0,4000])
+        plt.subplot(2,2,3)
+        plt.title('The lady after cst')
+        image_csted = cst(image_array)
+        plt.gray()
+        plt.imshow(image_csted, vmin=0, vmax=1)
+        plt.subplot(2,2,4)
+        plt.title('The histogram after cst')
+        hist_values, bin_edges, patch = plt.hist(image_csted.flatten(), bins=40)
+        plt.axis([0,1,0,4000])
+        plt.show()
+        plt.close('all')
+        choice = raw_input('You will now be taken to the menu (press enter)')
+        self.menu()
 
 
     def linear_filter(self):
@@ -54,11 +77,11 @@ class AssignmentOne():
         
         """
         print '\nLinear filter assignment (to be implemented)'
-        sys.exit(0)
+        self.menu()
 
 
     def menu(self):
-        """ The main menu """
+        """ The main menu. ``fails''= number of invalid choices """
         print '\n --- MAIN MENU ---'
         print '\n [1] Contrast stretching exercise'
         print '\n [2] Linear filtering exercise'
@@ -66,12 +89,13 @@ class AssignmentOne():
         fails = 0
 
         def prompt(fails):
-            """ note that we ensure ``choice'' is not interpreted as a string """
+            """Note that we ensure ``choice'' is not interpreted as a string"""
             choice = 0
             choice = raw_input('\nChoose one:\n>> ')
             router(choice, fails)
 
         def router(choice, fails):
+            """ Executes the desired choice, if it is valid """
             if choice == '1':
                 self.contrast_stretch()
             if choice == '2':
@@ -83,17 +107,18 @@ class AssignmentOne():
                 tryagain(fails, choice)
 
         def tryagain(fails, choice):
+            """ Gives the user three chances to enter a valid choice """ 
             fails += 1
-            if (fails > 3):
+            if (fails > 2):
                 print '\nToo many wrong choices. Exiting...\n'
                 sys.exit(0)
-            print '\nSorry, '+choice+' is not a valid choice. Try again.'
+            print '\nSorry, ``'+choice+'\'\' is not a valid choice. Try again.'
             prompt(fails)
 
         prompt(fails)
 
 if __name__ == "__main__":
-    print '\n*** Lucas & Joris\' first assignment for Beeldbewerken (class of 2011) ***\n'    
+    print '\n*** First assignment for Beeldbewerken (2011) ***\n'
     assignment = AssignmentOne()
     assignment.menu()
 
