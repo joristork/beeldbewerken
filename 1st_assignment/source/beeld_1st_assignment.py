@@ -1,10 +1,7 @@
 #!/usr/bin/env python
 """
-:synopsis:  This file contains some simple image processing implementations and
-            associated introspective functions.  The operations in question are
-            contrast stretching and linear filtering.  This file represents our
-            first assignmemt for the Beeldbewerken lab class as part of the BSc
-            in Informatics at the University of Amsterdam.
+:synopsis:  This file contains the answers to two exercises for the first
+            Beeldbewerkan assignment.
 
             In line with the development guidelines on http://goo.gl/yvb6B we do
             not resort to pylab for this script.
@@ -22,13 +19,8 @@ import numpy as np
 
 def contrast_stretching_exercise():
     """
-    This function displays builds and then displays subplots in a 2x2 arrangment
-    to demonstrate an implementation of contrast stretching.  First the low
-    contrast image is loaded (with automatic stretching disabled) and set to a
-    greyscale colourmap before being plotted top-left. Second, a histogram of
-    the greyscale values of loaded image is plotted top-right. Then, our cst
-    function is applied to the loaded image, and the resulting image is plotted
-    bottom-left. Finally, the corresponding histogram is plotted bottom-right.
+    This function demonstrates a contrast stretching algorithm using a single
+    figure with four subplots: one pre-, and one post-cst image-histogram pair.
     
     """
 
