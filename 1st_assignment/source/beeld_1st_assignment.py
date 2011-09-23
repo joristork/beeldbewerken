@@ -86,16 +86,48 @@ def linear_filtering_exercise():
 
     def linfilter2(f, w):
         """ Second linear filter implementation """
-        pass
+        g = empty(f.shape, dtype=f.dtype)
+        M, N = f.shape
+        K, L = (array(w.shape) - 1) / 2
+
+        for j in xrange(N):
+            for i in xrange(M):
+                ii = minimum(M-1 , maximum(0, arange(i-K, i+K,i+K+1)))
+                jj = minimum(N - 1, maximum(0, arange(j - L, j+L + 1)))
+                nbh = f[ ix_(ii, jj)]
+                g[i,j] = (nbh * w).sum()
+        return g
 
     def linfilter3(f, w):
         """ Third linear filter implementation """
-        pass
+        M, N = f.shape
+        K, L = (array(w.shape) - 1) / 2
+
+        di, dj = meshgrid(arange(-L, L+1), arange(-K, K+1))
+        didjw = zip( di.flatten(), dj.flatten(), w.flatten())
+
+        def translate(di,dj):
+            ii = minimum(M-1, maximum(0, di+arange(M)))
+            jj = minimum(N-1, maximum(0, dj+arange(N)))
+            return f[ ix_(ii, jj)]
+
+        r = 0 * f
+        for di, dj, weight in didgw:
+            ir += weight * translate(di,dj)
+        return r
+
+        
 
     def linfilter4(f, w):
         """ Fourth linear filter implementation """
-        pass
+        return correlate(f, w, mode= 'nearest')
 
+    j
+    g = linfilter(f, ones((5,5))/25)
+    subplot(1,2,1)
+    imshow(f)
+    subplot(1,2,2)
+    imshow(g)
     menu()
 
 
