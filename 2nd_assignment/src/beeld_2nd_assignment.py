@@ -18,7 +18,10 @@ import perspective_transformation as exc4
 
 
 def interpolation_and_profile_exercise():
-    """ First two exercises:  """
+    """ First two exercises. Loads a png image. """
+    camereman_image_rgb = mpimg.imread('../images/cameraman.png')
+    camereman_image = np.mean(cameraman_image_rgb, 2)
+    menu()
     print "\nto be implemented\n"
 
     menu()

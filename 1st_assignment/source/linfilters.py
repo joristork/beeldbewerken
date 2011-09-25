@@ -24,7 +24,7 @@ def linfilter1(f,w):
 
     def value(i, j):
         """ Returns value at (i,j) if it's a valid index, else 0 """ 
-        if i < 0 or i >= M or j < 0 or j >= N:
+        if i < 0 or i >= N or j < 0 or j >= M:
             return 0
         return f[i,j]
 
