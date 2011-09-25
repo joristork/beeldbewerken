@@ -1,7 +1,6 @@
 """
 :synopsis:  Four linear filter implementations, from fully self-written to a
-            simple call to the standard one dimensional correlation function in
-            scipy.
+            simple call to the standard Filter2D function in opencv.
 
 .. moduleauthor:: Joris Stork <joris@wintermute.eu>, Lucas Swartsenburg
 <luuk@noregular.com>
