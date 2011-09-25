@@ -1,26 +1,29 @@
 #!/usr/bin/env python
 """
 :synopsis:  This file contains the answers to two exercises for the first
-            Beeldbewerkan assignment.
-
-            In line with the development guidelines on http://goo.gl/yvb6B we do
-            not resort to pylab for this script.
+            Beeldbewerkan assignment. In line with the development guidelines
+            on http://goo.gl/yvb6B we do not resort to pylab for this script.
 
 .. moduleauthor:: Joris Stork <joris@wintermute.eu>, Lucas Swartsenburg
 <luuk@noregular.com>
 
 """
+
 __author__ = "Joris Stork, Lucas Swartsenburg"
 
 import sys
 import matplotlib.pyplot as plt
 import numpy as np
+from linfilters import linfilter
+from linfilters import hatman_image
+from linfilters import f
+from performance_plotter import test_performance
 
 
 def contrast_stretching_exercise():
     """
-    This function demonstrates a contrast stretching algorithm using a single
-    figure with four subplots: one pre-, and one post-cst image-histogram pair.
+    Demonstrates a contrast stretching algorithm using a single figure with four
+    subplots: one pre-, and one post- cst image + histogram pair.
     
     """
 
@@ -36,7 +39,6 @@ def contrast_stretching_exercise():
     plt.title('The low contrast lady')
     image_array = np.load("../images/lowcontrast.npy")
     plt.imshow(image_array, vmin=0, vmax=1)
-    plt.gray()
     plt.subplot(2,2,2)
     plt.title('Her histogram')
     hist_values, bin_edges, patch = plt.hist(image_array.flatten(), bins=40)
@@ -52,82 +54,53 @@ def contrast_stretching_exercise():
     plt.axis([0,1,0,4000])
     plt.show()
     plt.close('all')
-    choice = raw_input('You will now be taken to the menu (press enter)')
+    raw_input('You will now be taken to the menu (press enter)')
     menu()
 
 
 def linear_filtering_exercise():
     """
-   
+    Demonstrates four different linear filter implementations, first with side
+    by side plots of their output by way of functional verification, and second
+    with execution time measurements by way of a performance test. Timing is
+    done for different neighbourhood sizes.
     
     """
 
-    def linfilter1(f, w):
-        """ First linear filter implementation """
-        
-        def value(i,j):
-            """ Returns value at (i,j) if it's a valid index, else 0 """ 
-            if i < 0 or i >= M or j < 0 or j >= N:
-                return 0
-            return f[i,j]
+    function_names = ['linfilter1()', 'linfilter2()', 'linfilter3()', 
+                         'linfilter4()']
 
-        g = empty(f.shape, dtype=f.dtype)
-        M, N = f.shape
-        K, L = (array(w.shape) - 1) / 2
+    def draw_plots():
+        """ Plots original image alongside linfilter implementation outputs """
+        raw_input('\nYou will now be shown graphical results (press enter):')
+        plt.subplot(2,4,1)
+        plt.title('original image')
+        plt.imshow(hatman_image)
+        plt.gray()
+        i = 5
+        for function_nr in xrange(4):
+            g = linfilter(function_nr+1, w_size = 25)
+            plt.subplot(2,4,i)
+            plt.title(function_names[i-5])
+            plt.imshow(g)
+            plt.gray()
+            i += 1    
+        plt.show()
 
-        for j in xrange(N):
-            for i in xrange(M):
-                summed = 0
-                for k in xrange(-K, K+1):
-                    for l in xrange(-L, L+1):
-                        summed += value(i + k, j + l) * w[k + K, l + L]
-                g[i,j] = summed
-        return g
-
-    def linfilter2(f, w):
-        """ Second linear filter implementation """
-        g = empty(f.shape, dtype=f.dtype)
-        M, N = f.shape
-        K, L = (array(w.shape) - 1) / 2
-
-        for j in xrange(N):
-            for i in xrange(M):
-                ii = minimum(M-1 , maximum(0, arange(i-K, i+K,i+K+1)))
-                jj = minimum(N - 1, maximum(0, arange(j - L, j+L + 1)))
-                nbh = f[ ix_(ii, jj)]
-                g[i,j] = (nbh * w).sum()
-        return g
-
-    def linfilter3(f, w):
-        """ Third linear filter implementation """
-        M, N = f.shape
-        K, L = (array(w.shape) - 1) / 2
-
-        di, dj = meshgrid(arange(-L, L+1), arange(-K, K+1))
-        didjw = zip( di.flatten(), dj.flatten(), w.flatten())
-
-        def translate(di,dj):
-            ii = minimum(M-1, maximum(0, di+arange(M)))
-            jj = minimum(N-1, maximum(0, dj+arange(N)))
-            return f[ ix_(ii, jj)]
-
-        r = 0 * f
-        for di, dj, weight in didgw:
-            ir += weight * translate(di,dj)
-        return r
-
-        
-
-    def linfilter4(f, w):
-        """ Fourth linear filter implementation """
-        return correlate(f, w, mode= 'nearest')
-
-    j
-    g = linfilter(f, ones((5,5))/25)
-    subplot(1,2,1)
-    imshow(f)
-    subplot(1,2,2)
-    imshow(g)
+    draw_plots()
+    w_sizes = ['9', '25', '121']
+    for i in xrange (3):
+        raw_input('\n\nPerformance tests: %d of 3 to follow (press enter)' % (i+1))
+        print '** Performance test for w_size = '+w_sizes[i]+' **'
+        test_performance('linfilters', 'linfilter', function_names, 5, 
+                         ', w_size = '+w_sizes[i])
+    #raw_input('\nPerformance tests: 2 of 3')
+    #print '** Performance test for w_size = 25 **'
+    #test_performance('linfilters', 'linfilter', function_names, 5, ', w_size = 25')
+    #raw_input('\nPerformance tests: 3 of 3')
+    #print '** Performance test for w_size = 121 **'
+    #test_performance('linfilters', 'linfilter', function_names, 5, ', w_size = 121')
+    #raw_input('\nYou will now be taken to the menu (press enter)')
     menu()
 
 
@@ -149,9 +122,9 @@ def menu():
         """ Executes the desired choice, if it is valid """
         if choice == '1':
             contrast_stretching_exercise()
-        if choice == '2':
+        elif choice == '2':
             linear_filtering_exercise()
-        if choice == '3':
+        elif choice == '3':
             print '\nGoodbye!\n'
             sys.exit(0)
         else:
