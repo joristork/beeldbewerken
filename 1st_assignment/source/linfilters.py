@@ -13,13 +13,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 import cv
 import matplotlib.image as mpimg
-#from scipy.ndimage.filters import correlate1d
-#from scipy.signal import correlate
 from scipy.ndimage.interpolation import zoom
 
 hatman_rgb = mpimg.imread('../images/hatman.png')
 hatman_image = np.mean(hatman_rgb,2)
-#f = zoom(hatman_image, 0.25)
 f = hatman_image
 
 def linfilter1(f,w):
