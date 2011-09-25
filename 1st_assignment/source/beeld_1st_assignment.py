@@ -94,13 +94,6 @@ def linear_filtering_exercise():
         print '** Performance test for w_size = '+w_sizes[i]+' **'
         test_performance('linfilters', 'linfilter', function_names, 5, 
                          ', w_size = '+w_sizes[i])
-    #raw_input('\nPerformance tests: 2 of 3')
-    #print '** Performance test for w_size = 25 **'
-    #test_performance('linfilters', 'linfilter', function_names, 5, ', w_size = 25')
-    #raw_input('\nPerformance tests: 3 of 3')
-    #print '** Performance test for w_size = 121 **'
-    #test_performance('linfilters', 'linfilter', function_names, 5, ', w_size = 121')
-    #raw_input('\nYou will now be taken to the menu (press enter)')
     menu()
 
 
