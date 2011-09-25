@@ -29,31 +29,22 @@ def nearest_interpolate(image, x, y):
     x0 = (int)(x)
     y0 = (int)(y)
 
-    print image[x0][y0]
-    print image[x0 + 1][y0]
-    print image[x0][y0 + 1]
-    print image[x0 + 1][y0 + 1]
-
     if x - x0 >= 0.5 and y - y0 >= 0.5:
-        print 4
         if inImage(image, x0 + 1, y0 + 1):
             return image[x0 + 1][y0 + 1]
         else:
             return contantValue
     elif x - x0 < 0.5 and y - y0 >= 0.5:
-        print 3
         if inImage(image, x0, y0 + 1):
             return image[x0][y0 + 1]
         else:
             return contantValue
     elif x - x0 >= 0.5 and y - y0 < 0.5:
-        print 2
         if inImage(image,  x0 + 1, y0):
             return image[x0 + 1][y0]
         else:
             return contantValue
     else:
-        print 1
         return image[x0][y0]
 
     
@@ -109,10 +100,4 @@ def profile(image, x0, y0, x1, y1, n, method):
     """
     Profile of an image along line in n points
     """
-    i = 0
-    for (x,y) in zip(np.linspace(x0, x1, n), np.linspace(y0,y1,n)):
-        g =  (i, x, y, pV(image,x,y,method))
-        print g
-        i = i + 1
-
     return array([pV(image,x,y,method) for (x,y) in zip(np.linspace(x0, x1, n), np.linspace(y0,y1,n))])

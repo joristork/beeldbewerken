@@ -12,6 +12,9 @@
 __author__ = "Joris Stork, Lucas Swartsenburg"
 
 import sys
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
 import interpolation_and_profile as exc1_2
 import affine_transformation as exc3
 import perspective_transformation as exc4
@@ -19,11 +22,32 @@ import perspective_transformation as exc4
 
 def interpolation_and_profile_exercise():
     """ First two exercises. Loads a png image. """
-    camereman_image_rgb = mpimg.imread('../images/cameraman.png')
-    camereman_image = np.mean(cameraman_image_rgb, 2)
-    menu()
-    print "\nto be implemented\n"
+    cameraman_image_rgb = mpimg.imread('../images/cameraman.png')
+    cameraman_image = np.mean(cameraman_image_rgb, 2)
+    
+    n = 20
 
+    plt.gray()
+    plt.subplot(2,2,1)
+    plt.title("Grayscale image")
+    plt.imshow(cameraman_image)
+
+    plt.subplot(2,2,2)
+    graph = plt.plot(exc1_2.profile(cameraman_image,100,100,120,120,n,'nearest'))
+    plt.title("Graph for nearest neigbor with " + repr(n) + " points")
+
+    plt.subplot(2,2,3)
+    plt.title("Grayscale image")
+    plt.imshow(cameraman_image)
+
+    plt.subplot(2,2,4)
+    plt.title("Graph for bilinear interpolation with " + repr(n) + " points")
+    graph = plt.plot(exc1_2.profile(cameraman_image,100,100,120,120,n,'linear'))
+
+
+
+
+    plt.show()  
     menu()
 
 
