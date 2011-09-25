@@ -12,24 +12,30 @@
 __author__ = "Joris Stork, Lucas Swartsenburg"
 
 import sys
-import interpolation_and_profile_exercise as exc1_2
-import affine_transformation_exercise as exc3
-import perspective_transformation_exercise as exc4
+import interpolation_and_profile as exc1_2
+import affine_transformation as exc3
+import perspective_transformation as exc4
 
 
 def interpolation_and_profile_exercise():
     """ First two exercises:  """
     print "\nto be implemented\n"
 
+    menu()
+
 
 def affine_transformation_exercise():
     """ Third exercise:  """
     print "\nto be implemented\n"
 
+    menu()
+
 
 def perspective_transformation_exercise():
     """ Fourth exercise:  """
     print "\nto be implemented\n"
+
+    menu()
 
 
 def menu():
