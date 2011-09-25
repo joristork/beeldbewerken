@@ -1,55 +1,44 @@
 #!/usr/bin/env python
 """
-:synopsis:  This file contains the answers to two exercises for the first
-            Beeldbewerkan assignment.
-
-            In line with the development guidelines on http://goo.gl/yvb6B we do
-            not resort to pylab for this script.
+:synopsis:  Second assignment for Beeldbewerken (BSc Informatica, UvA): ``Python
+            for IP & CV''. In line with the development guidelines on
+            http://goo.gl/yvb6B we do not resort to pylab for this script.
 
 .. moduleauthor:: Joris Stork <joris@wintermute.eu>, Lucas Swartsenburg
 <luuk@noregular.com>
 
 """
+
 __author__ = "Joris Stork, Lucas Swartsenburg"
 
 import sys
-import matplotlib.pyplot as plt
-import numpy as np
+import interpolation_and_profile_exercise as exc1_2
+import affine_transformation_exercise as exc3
+import perspective_transformation_exercise as exc4
 
-def interpolation_exercise():
-    if "true" == "true":
-        print "True"
-    else:
-        print "False"
-    def pV(image, x, y, method):
-        interpolatedValue, constantValue = 0 
 
-        if method == "nearest":
-            if inImage(image, x, y):
-                # do interpolation
-                return interpolatedValue
-            else:
-                # return a constant
-                return constantValue
-        if method == "linear":
-            if inImage(image, x, y):
-                # do interpolation
-                return interpolatedValue
-            else:
-                # return a constant
-                return constantValue
+def interpolation_and_profile_exercise():
+    """ First two exercises:  """
+    print "\nto be implemented\n"
 
-    def inImage(image, x, y):
-        return True
 
+def affine_transformation_exercise():
+    """ Third exercise:  """
+    print "\nto be implemented\n"
+
+
+def perspective_transformation_exercise():
+    """ Fourth exercise:  """
+    print "\nto be implemented\n"
 
 
 def menu():
     """ The main menu. ``fails''= number of invalid choices """
     print '\n --- MAIN MENU ---'
-    print '\n [1] Contrast stretching exercise'
-    print '\n [2] Linear filtering exercise'
-    print '\n [3] Exit'
+    print '\n [1] Interpolation and profile exercises'
+    print '\n [2] Affine transformation exercise'
+    print '\n [3] Perspective transformation exercise'
+    print '\n [4] Exit'
     fails = 0
 
     def prompt(fails):
@@ -61,10 +50,12 @@ def menu():
     def router(choice, fails):
         """ Executes the desired choice, if it is valid """
         if choice == '1':
-            interpolation_exercise()
-        if choice == '2':
-            linear_filtering_exercise()
-        if choice == '3':
+            interpolation_and_profile_exercise()
+        elif choice == '2':
+            affine_transformation_exercise()
+        elif choice == '3':
+            perspective_transformation_exercise()
+        elif choice == '4':
             print '\nGoodbye!\n'
             sys.exit(0)
         else:

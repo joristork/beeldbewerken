@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 """
-:synopsis:  This file contains the answers to two exercises for the first
-            Beeldbewerkan assignment. In line with the development guidelines
-            on http://goo.gl/yvb6B we do not resort to pylab for this script.
+:synopsis:  First assignment for Beeldbewerken (BSc Informatica, UvA): In line
+            with the development guidelines on http://goo.gl/yvb6B we do not
+            resort to pylab for this script.
 
 .. moduleauthor:: Joris Stork <joris@wintermute.eu>, Lucas Swartsenburg
 <luuk@noregular.com>
