@@ -19,7 +19,7 @@ from scipy import array
 
 def inImage(image, x, y):
     """ Returns True if coordinates are within given image domain """
-    height, width = image.shape
+    width, height = image.shape
     return x < width and x >= 0 and y < height and y >= 0 
 
 
@@ -33,19 +33,23 @@ def nearest_interpolate(image, x, y):
         if inImage(image, x0 + 1, y0 + 1):
             return image[x0 + 1][y0 + 1]
         else:
-            return contantValue
+            return constantValue
     elif x - x0 < 0.5 and y - y0 >= 0.5:
         if inImage(image, x0, y0 + 1):
             return image[x0][y0 + 1]
         else:
-            return contantValue
+            return constantValue
     elif x - x0 >= 0.5 and y - y0 < 0.5:
         if inImage(image,  x0 + 1, y0):
             return image[x0 + 1][y0]
         else:
-            return contantValue
+            return constantValue
     else:
-        return image[x0][y0]
+        if inImage(image, x0, y0):
+            return image[x0][y0]
+        else:
+            return contantValue
+
 
     
 
@@ -54,19 +58,22 @@ def bilinear_interpolate(image, x, y):
     constantValue = 0.5
     x0 = (int)(x)
     y0 = (int)(y)
-    p00 = image[x,y]
+    if inImage(image, x0, y0):
+        p00 = image[x,y]
+    else:
+        return constantValue
     if inImage(image, x0, y0 + 1):
         p01 = image[x0, y0 + 1]
     else:
-        return contantValue
+        return constantValue
     if inImage(image, x0 + 1, y0):
         p10 = image[x0 + 1, y0]
     else:
-        return contantValue
+        return constantValue
     if inImage(image, x0 + 1, y0 + 1):
         p11 = image[x0 + 1, y0 + 1]
     else:
-        return contantValue
+        return constantValue
 
     xdiff = x - x0
     ydiff = y - y0

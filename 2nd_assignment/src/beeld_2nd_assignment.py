@@ -53,7 +53,18 @@ def interpolation_and_profile_exercise():
 
 def affine_transformation_exercise():
     """ Third exercise:  """
-    print "\nto be implemented\n"
+    cameraman_image_rgb = mpimg.imread('../images/cameraman.png')
+    cameraman_image = np.mean(cameraman_image_rgb, 2)
+    plt.gray()
+    plt.subplot(1,2,1)
+    plt.title("Original")
+    plt.imshow(cameraman_image)
+
+    plt.subplot(1,2,2)
+    plt.title("Transformed image")
+    plt.imshow(exc3.affineTransform(cameraman_image, 100,200, 100,400, 400, 400, 200, 300))
+    plt.show()
+
 
     menu()
 
@@ -61,7 +72,7 @@ def affine_transformation_exercise():
 def perspective_transformation_exercise():
     """ Fourth exercise:  """
     print "\nto be implemented\n"
-
+    
     menu()
 
 
