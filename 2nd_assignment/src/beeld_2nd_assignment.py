@@ -71,8 +71,19 @@ def affine_transformation_exercise():
 
 def perspective_transformation_exercise():
     """ Fourth exercise:  """
-    print "\nto be implemented\n"
-    
+    cameraman_image_rgb = mpimg.imread('../images/cameraman.png')
+    cameraman_image = np.mean(cameraman_image_rgb, 2)
+    plt.gray()
+    plt.subplot(1,2,1)
+    plt.title("Original")
+    plt.imshow(cameraman_image)
+
+    plt.subplot(1,2,2)
+    plt.title("Transformed image")
+    plt.imshow(exc4.perspectiveTransform(cameraman_image, 100,100, 100,400, 400, 400,400, 100, 300, 300))
+    plt.show()
+
+
     menu()
 
 
