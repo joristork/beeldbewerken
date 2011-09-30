@@ -24,10 +24,10 @@ def affineTransform(image, x1, y1, x2, y2, x3, y3, M, N):
     The return value is a new image with the points placed into the
     correct corners.
     """
-    m = np.array([[y1,x1,1,0,0,0],[0,0,0,y1,x1,1],[y2,x2,1,0,0,0],
-            [0,0,0,y2,x2,1],[y3,x3,1,0,0,0],[0,0,0,y3,x3,1]])
+    m = np.array([[x1,y1,1,0,0,0],[0,0,0,x1,y1,1],[x2,y2,1,0,0,0],
+            [0,0,0,x2,y2,1],[x3,y3,1,0,0,0],[0,0,0,x3,y3,1]])
     
-    q = np.array([0,0,0,M,N,M]).flatten().transpose()
+    q = np.array([0,0,0,M,N,M]).transpose()
     A = np.append(np.linalg.lstsq(m, q)[0], np.array((0.0,0.0,1.0), dtype=float)).reshape(3,3)
 
     Ainv =  np.linalg.inv(A)

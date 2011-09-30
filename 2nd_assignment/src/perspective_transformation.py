@@ -13,36 +13,53 @@ import numpy as np
 from interpolation_and_profile import bilinear_interpolate 
 
 def perspectiveTransform(image, x1, y1, x2, y2, x3, y3, x4, y4, M, N):
+    """
+    This function takes the coordinates of four points and transforms them to
+    the edges of the new picture. This new picture has a NxM resolution.
+
+    The function uses the singe value decomposition to produce a trasposed
+    V matrix. The last row of the transposed V matrix is reshaped to a 3x3 
+    coefficient matrix that contains the transformation. The transformed points
+    still need to be multiplied by a factor 1/s. 
+    """
     p1 = [x1,y1]
     p2 = [x2,y2]
     p3 = [x3,y3]
     p4 = [x4,y4]
     
-    # M = rijen
-    # N = kolommen
-
     p1b = [0,0]
     p2b = [0,M]
     p3b = [N,M]
     p4b = [N,0]
 
-    m = [[p1[0],p1[1],1,0,0,0,-p1b[0] * p1[0],-p1b[0] * p1[1],-p1b[0]], [
-        0,0,0,p1[0],p1[1],1,-p1b[1] * p1[0],-p1b[1] * p1[1],-p1b[1]],[
-        
-        p2[0],p2[1],1,0,0,0,-p2b[0] * p2[0],-p2b[0] * p2[1],-p2b[0]], [
-        0,0,0,p2[0],p2[1],1,-p2b[1] * p2[0],-p2b[1] * p2[1],-p2b[1]],[
+    m = np.array((
+        [
+            [p1[0],p1[1],1,0,0,0,-p1b[0] * p1[0],-p1b[0] * p1[1],-p1b[0]], 
+            [0,0,0,p1[0],p1[1],1,-p1b[1] * p1[0],-p1b[1] * p1[1],-p1b[1]],
+            
+            [p2[0],p2[1],1,0,0,0,-p2b[0] * p2[0],-p2b[0] * p2[1],-p2b[0]], 
+            [0,0,0,p2[0],p2[1],1,-p2b[1] * p2[0],-p2b[1] * p2[1],-p2b[1]],
+            
+            [p3[0],p3[1],1,0,0,0,-p3b[0] * p3[0],-p3b[0] * p3[1],-p3b[0]], 
+            [0,0,0,p3[0],p3[1],1,-p3b[1] * p3[0],-p3b[1] * p3[1],-p3b[1]],
+            
+            [p4[0],p4[1],1,0,0,0,-p4b[0] * p4[0],-p4b[0] * p4[1],-p4b[0]], 
+            [0,0,0,p4[0],p4[1],1,-p4b[1] * p4[0],-p4b[1] * p4[1],-p4b[1]]
+        ]
+        ), dtype=float)
 
-        p3[0],p3[1],1,0,0,0,-p3b[0] * p3[0],-p3b[0] * p3[1],-p3b[0]], [
-        0,0,0,p3[0],p3[1],1,-p3b[1] * p3[0],-p3b[1] * p3[1],-p3b[1]],[
+    U,D,VT = np.linalg.svd(m)
 
-        p4[0],p4[1],1,0,0,0,-p4b[0] * p4[0],-p4b[0] * p4[1],-p4b[0]], [
-        0,0,0,p4[0],p4[1],1,-p4b[1] * p4[0],-p4b[1] * p4[1],-p4b[1]]]
+    p = VT[-1]
 
-    #minv = np.linalg.inv(np.array(m))
+    P = np.linalg.inv(np.reshape(p, (3,3)))
 
-    marr = np.array((m), dtype=float)
+    newimage = np.empty((M,N), dtype=float)
+    for y in xrange(M):
+        for x in xrange(N):
+            newp =  np.dot(P, [x,y,1])
+            s = newp / newp[2]
+            newimage[y][x] = bilinear_interpolate(image, s[0], s[1])
+            
+    return newimage
 
-
-    print p
- 
-    return image

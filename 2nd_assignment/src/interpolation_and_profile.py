@@ -19,7 +19,7 @@ from scipy import array
 
 def inImage(image, x, y):
     """ Returns True if coordinates are within given image domain """
-    width, height = image.shape
+    height, width = image.shape
     return x < width and x >= 0 and y < height and y >= 0 
 
 
@@ -31,22 +31,22 @@ def nearest_interpolate(image, x, y):
 
     if x - x0 >= 0.5 and y - y0 >= 0.5:
         if inImage(image, x0 + 1, y0 + 1):
-            return image[x0 + 1][y0 + 1]
+            return image[y0 + 1][x0 + 1]
         else:
             return constantValue
     elif x - x0 < 0.5 and y - y0 >= 0.5:
         if inImage(image, x0, y0 + 1):
-            return image[x0][y0 + 1]
+            return image[y0][x0 + 1]
         else:
             return constantValue
     elif x - x0 >= 0.5 and y - y0 < 0.5:
         if inImage(image,  x0 + 1, y0):
-            return image[x0 + 1][y0]
+            return image[y0 + 1][x0]
         else:
             return constantValue
     else:
         if inImage(image, x0, y0):
-            return image[x0][y0]
+            return image[y0][x0]
         else:
             return contantValue
 
@@ -59,19 +59,19 @@ def bilinear_interpolate(image, x, y):
     x0 = (int)(x)
     y0 = (int)(y)
     if inImage(image, x0, y0):
-        p00 = image[x,y]
+        p00 = image[y0,x0]
     else:
         return constantValue
     if inImage(image, x0, y0 + 1):
-        p01 = image[x0, y0 + 1]
+        p01 = image[y0 + 1, x0]
     else:
         return constantValue
     if inImage(image, x0 + 1, y0):
-        p10 = image[x0 + 1, y0]
+        p10 = image[y0, x0 + 1]
     else:
         return constantValue
     if inImage(image, x0 + 1, y0 + 1):
-        p11 = image[x0 + 1, y0 + 1]
+        p11 = image[y0 + 1, x0 + 1]
     else:
         return constantValue
 

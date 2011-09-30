@@ -80,7 +80,7 @@ def perspective_transformation_exercise():
 
     plt.subplot(1,2,2)
     plt.title("Transformed image")
-    plt.imshow(exc4.perspectiveTransform(cameraman_image, 100,100, 100,400, 400, 400,400, 100, 300, 300))
+    plt.imshow(exc4.perspectiveTransform(cameraman_image, 100,100, 0,400, 400, 400,300, 100, 400, 400))
     plt.show()
 
 
