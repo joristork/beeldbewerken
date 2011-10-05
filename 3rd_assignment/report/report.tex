@@ -1,8 +1,8 @@
 \documentclass[abstract=true]{scrartcl}
-\subject{Beeldbewerken}
+\subject{Beeldbewerken \\ Assignment 3: ``Finding Waldo''}
 \title{}
 \author{Joris Stork, Lucas Swartsenburg}
-\usepackage{graphicx,amsmath,titlepic}
+\usepackage{graphicx,amsmath}
 \addtolength{\parskip}{\baselineskip}
 \begin{document}
 \maketitle
@@ -16,9 +16,10 @@
 
             One needs an array (of floats) of dimension $n$ where $n$ is the
             number of components in the colour model. In this case, a three
-            dimensional array. The indexes in each dimension together index 3-D
-            bins, and the values in the ultimately indexed elements are the
-            numbers of pixels in the image displaying the corresponding colour. 
+            dimensional array. The indexes in each dimension together index the
+            bins of a three dimensional histogram. The values in the ultimately
+            indexed elements represent the numbers of pixels in the image that
+            display the colour corresponding to that bin. 
 
 \subsection{Histogram intersection exercise}
 

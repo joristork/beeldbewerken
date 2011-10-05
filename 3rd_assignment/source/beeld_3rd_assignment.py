@@ -29,15 +29,13 @@ def hist_inters_col_model_exercise(model):
     
     """
 
-    print '\nColour histogram, histogram intersection exercise\n'
+    print '\nColour histogram and histogram intersection exercise\n'
     bins = (10,10,10)
     images = load_images('db')
-    print images[1]
     image = mpimg.imread(images[1][0]+images[0][0][0])
     plt.subplot(1,1,1)
     plt.imshow(image)
     plt.show()
-    plt.close('all')
 
     print colHist(image, bins, model)
 

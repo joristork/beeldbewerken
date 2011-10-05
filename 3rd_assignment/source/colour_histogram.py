@@ -23,10 +23,10 @@ def col2bin(colour, bins, m):
 
     models = ['rgb']
     if m in models:
-        index = np.zeros[len(m)]
-        bin_step = np.zeros(len(m))
+        index = np.zeros(len(m), dtype = int)
+        bin_step = []
         for i in xrange(len(m)):
-            np.append(bin_step, (255 / bins[i]))
+            bin_step = np.append(bin_step, (256.0 / bins[i]))
             index[i] = (int) (colour[i] / bin_step[i])
         return list(index)
     else:
@@ -35,14 +35,16 @@ def col2bin(colour, bins, m):
 
 def colHist(image, bins, model):
     """ 
-    Given an image; a tuple indicating the number of bins per colour axis; and a
+    Given: an image; a tuple indicating the number of bins per colour axis; and a
     colour model, this function fills and then returns a colour histogram in the
     form of an array whose rank equals the number of components of the colour
     model. `p' indexes a pixel in the image during iteration. col2bin() is used
     to obtain a histogram bin index for a given colour.
     
     """
-    h = np.zeros(bins)
-    for p in domainIterator(image):
-        h[col2bin(image[p])] += 1
+    h = np.zeros((bins), dtype=int)
+    for row in image:
+        for pixel in row:
+            r, g, b  = col2bin(pixel, bins = bins, m = model)
+            h[r][g][b] += 1
     return h
