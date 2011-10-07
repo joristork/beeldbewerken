@@ -33,7 +33,7 @@ def col2bin(colour, bins, m):
         return -1
 
 
-def colHist(image, bins, model):
+def col_hist(image, bins, model):
     """ 
     Given: an image; a tuple indicating the number of bins per colour axis; and a
     colour model, this function fills and then returns a colour histogram in the

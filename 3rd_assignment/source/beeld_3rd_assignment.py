@@ -2,7 +2,7 @@
 """
 :synopsis:  Third assignment for Beeldbewerken (BSc Informatica, UvA): In line
             with the development guidelines on http://goo.gl/yvb6B we do not
-            resort to pylab for this script.
+            resort to pylab.
 
 .. moduleauthor:: Joris Stork <joris@wintermute.eu>, Lucas Swartsenburg
 <luuk@noregular.com>
@@ -16,30 +16,78 @@ import os
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import numpy as np
-from colour_histogram import colHist
-
+from colour_histogram import col_hist
+from histogram_intersection import histogram_intersect
 
 def hist_inters_col_model_exercise(model):
     """
-    For the given colour model, calculates pairs of histograms and their
-    respective intersections from a database of 10 images; displays these
-    intersections in a 10x10 table; displays respective intersections of each
-    image with some web images. 
-    
+    Corresponds to the first exercise of this assignment. Prints a histogram of
+    one image for the given colour model; calculates all histograms in the
+    "database" of images; calculates and displays a table of intersections of
+    all database histograms; calculates and displays a table of intersections of
+    the database images against a selection of external images.
     
     """
 
     print '\nColour histogram and histogram intersection exercise\n'
-    bins = (10,10,10)
-    images = load_images('db')
+
+    bins = (10, 10, 10)
+    images = load_images(('db','ext'))
     image = mpimg.imread(images[1][0]+images[0][0][0])
     plt.subplot(1,1,1)
-    plt.imshow(image)
+
+    print '\nSo, we\'re going to build a 3d colour histogram.'
+    raw_input '\nLet\'s have a look at the image in question:\n(Press enter)'
+    plt.imshow(np.flipud(image))
     plt.show()
 
-    print colHist(image, bins, model)
+    print '\nNow let\'s calculate + view the corresponding histogram printout.'
+    press_enter_and_wait()
+    print col_hist(image, bins, model)
 
+    print '\nNow we\'ll build a table of histogram intersections for all the'
+    print 'images in our database'
+    intersections_table(images)
     menu()
+
+
+def intersections_table(images, with_ext = False):
+    """ 
+    Returns a table of intersections of database image histograms against
+    themselves, or, if "with_ext" == "true", of database histograms against
+    "external" image histograms.
+    
+    """
+    print '\nStep 1: calculate histograms'
+    press_enter_and_wait()
+    db_histograms = []
+    for img in images[0][0]:
+        image = mpimg.imread(images[1][0]+img)
+        db_histograms.append(col_hist(image, bins, model))
+    ext_histograms = []
+    if with_ext:
+        for img in images[0][1]:
+        image = mpimg.imread(images[1][1]+img)
+        ext_histograms.append(col_hist(image, bins, model))
+
+    print '\nStep 2: build table of intersections'
+    press_enter_and_wait()
+    db_in_tbl = [['I\\M']]
+    for name in images[0][0]:
+        db_in_tbl[0].append(name[0:3])
+    for name in images[0][0]:
+        db_in_tbl.append([name[0:3]])
+    for h1 in db_histograms:
+        j = 1
+        for h2 in db_histograms:
+            db_in_tbl[j].append(histogram_intersect(h1, h2))
+            j += 1
+    raw_input '\nA printout of the resulting table follows:\n(press enter)'
+    print db_in_tbl
+
+def press_enter_and_wait():
+    raw_input('(Press enter)')
+    print 'This may take a while...'
 
 
 def colour_back_projection_exercise():
