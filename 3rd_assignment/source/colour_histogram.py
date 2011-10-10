@@ -21,7 +21,7 @@ def col2bin(colour, bins, m):
 
     """
 
-    models = ['rgb']
+    models = ['rgb', 'hsv', 'yuv']
     if m in models:
         index = np.zeros(len(m), dtype = int)
         bin_step = []
@@ -42,9 +42,17 @@ def col_hist(image, bins, model):
     to obtain a histogram bin index for a given colour.
     
     """
+
     h = np.zeros((bins), dtype=int)
-    for row in image:
-        for pixel in row:
-            r, g, b  = col2bin(pixel, bins = bins, m = model)
-            h[r][g][b] += 1
+    index = np.zeros((len(model)), dtype = int)
+    if len(model) is 3:
+        for row in image:
+            for pixel in row:
+                index[0: len(model)] = col2bin(pixel, bins = bins, m = model)
+                h[index[0]][index[1]][index[2]] += 1
+    elif len(model) is 4:
+        for row in image:
+            for pixel in row:
+                index[0: len(model)] = col2bin(pixel, bins = bins, m = model)
+                h[index[0]][index[1]][index[2]][index[3]] += 1
     return h
