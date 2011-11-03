@@ -1,0 +1,128 @@
+\documentclass[abstract=true]{scrartcl}
+\subject{Beeldbewerken \\ Assignment 4 : ``Local structure''}
+\title{}
+\author{Joris Stork, Lucas Swartsenburg}
+\usepackage{graphicx,amsmath,subfig}
+\addtolength{\parskip}{\baselineskip}
+\begin{document}
+\maketitle
+
+
+\section{Analytical local structure}
+
+    \subsection{Calculate derivatives of $f(x,y)=A \sin(V x)+B \cos(W y)$}
+
+        \begin{eqnarray}
+            f_{x} = A V \cos(V x) \nonumber \\ 
+            f_{y} = -B W \sin(W y) \nonumber \\
+            f_{xx} = -A V^2 \sin(V x) \nonumber \\
+            f_{yy} = -B W^2 \cos(W y) \nonumber \\
+        \end{eqnarray}
+
+    \subsection{Discretise and plot $f(x,y)=A \sin(V x)+B \cos(W y)$}
+
+        %\begin{figure}
+        %  \centering
+        %  \subfloat[air1]{\includegraphics[width=0.3\textwidth]{../images/}}                
+        %  \caption{blah}
+        %\end{figure}
+
+    \subsection{Generate images of $Fx$ and $Fy$}
+
+        %\begin{figure}
+        %  \centering
+        %  \subfloat[air1]{\includegraphics[width=0.3\textwidth]{../images/}}                
+        %  \caption{blah}
+        %\end{figure}
+
+    \subsection{Plot gradient vectors}
+
+        %\begin{figure}
+        %  \centering
+        %  \subfloat[air1]{\includegraphics[width=0.3\textwidth]{../images/}}                
+        %  \caption{blah}
+        %\end{figure}
+
+
+\section{Gaussian convolution}
+
+    \subsection{Implement \texttt{gauss(s)} function}
+
+    \subsection{Plot kernel}
+
+        %\begin{figure}
+        %  \centering
+        %  \subfloat[air1]{\includegraphics[width=0.3\textwidth]{../images/}}                
+        %  \caption{blah}
+        %\end{figure}
+
+    \subsection{Implement and time the Gaussian convolution}
+
+        %\begin{table}
+        %    \begin{tabular}{l l | *{10}{c}}
+        %
+        %              &Model&air2&bre1&air4&leds&air3&fire&star&air1&lbug&bre2\\  
+        %        Image &     &    &    &    &    &    &    &    &    &    &    \\ 
+        %        \hline
+        %        lbug  &     &0.06&0.10&0.02&0.09&0.06&0.07&0.09&0.03&1.00&0.13\\  
+        %        bre2  &     &0.27&0.28&0.09&0.15&0.22&0.19&0.16&0.04&0.11&1.00
+        %
+        %    \end{tabular}
+        %    \caption{RGB intersections within database}
+        %\end{table}
+        
+        %\begin{figure}
+        %  \centering
+        %  \subfloat[air1]{\includegraphics[width=0.3\textwidth]{../images/}}                
+        %  \caption{blah}
+        %\end{figure}
+
+
+\section{Separable Gaussian convolution}
+
+    \subsection{Implement \texttt{gauss1()} function}
+
+    \subsection{Obtain Gaussian convolution}
+
+
+\section{Gaussian derivatives}
+
+    \subsection{Show that derivatives of 2d Gauss function are separable}
+
+    \subsection{Implement \texttt{gD(F, s, iorder, jorder)} function}
+
+    \subsection{Visualise 2-jet of cameraman image}
+
+        %\begin{figure}
+        %  \centering
+        %  \subfloat[air1]{\includegraphics[width=0.3\textwidth]{../images/}}                
+        %  \caption{blah}
+        %\end{figure}
+
+
+\section{Canny edge detector}
+
+    \subsection{Implement Canny edge detector}
+
+    \subsection{Test Canny function on cameraman image}
+
+        %\begin{figure}
+        %  \centering
+        %  \subfloat[air1]{\includegraphics[width=0.3\textwidth]{../images/}}                
+        %  \caption{blah}
+        %\end{figure}
+
+        %\begin{table}
+        %    \begin{tabular}{l l | *{10}{c}}
+        %
+        %              &Model&air2&bre1&air4&leds&air3&fire&star&air1&lbug&bre2\\  
+        %        Image &     &    &    &    &    &    &    &    &    &    &    \\ 
+        %        \hline
+        %        lbug  &     &0.06&0.10&0.02&0.09&0.06&0.07&0.09&0.03&1.00&0.13\\  
+        %        bre2  &     &0.27&0.28&0.09&0.15&0.22&0.19&0.16&0.04&0.11&1.00
+        %
+        %    \end{tabular}
+        %    \caption{RGB intersections within database}
+        %\end{table}
+
+\end{document}
