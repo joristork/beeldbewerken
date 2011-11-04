@@ -24,11 +24,13 @@
 
         \subsubsection{Code}
         \begin{verbatim}
-        def f(X,Y, A = 1, B = 2, V = (6 * np.pi / 201), W = (4 * np.pi / 201)):
-            """ Discretisation of f. """
-            
-            F = A * np.sin(V * X) + B * np.cos(W * Y)
-            return F
+        
+    def f(X,Y, A = 1, B = 2, V = (6 * np.pi / 201), W = (4 * np.pi / 201)):
+        """ Discretisation of f. """
+        
+        F = A * np.sin(V * X) + B * np.cos(W * Y)
+        return F
+
         \end{verbatim}
 
         Plot is as in assignment description.
@@ -37,18 +39,20 @@
 
         \subsubsection{Code}
         \begin{verbatim}
-        def fx(X,Y, A = 1, B = 2, V = (6 * np.pi / 201), W = (4 * np.pi / 201)):
-            """  Discretisation of partial derivative of f wrt x. """
-            
-            F = A * V * np.cos(V * X)
-            return F
+
+    def fx(X,Y, A = 1, B = 2, V = (6 * np.pi / 201), W = (4 * np.pi / 201)):
+        """  Discretisation of partial derivative of f wrt x. """
+        
+        F = A * V * np.cos(V * X)
+        return F
 
 
-        def fy(X,Y, A = 1, B = 2, V = (6 * np.pi / 201), W = (4 * np.pi / 201)):
-            """  Discretisation of partial derivative of f wrt y. """
+    def fy(X,Y, A = 1, B = 2, V = (6 * np.pi / 201), W = (4 * np.pi / 201)):
+        """  Discretisation of partial derivative of f wrt y. """
 
-            F = -B * W * np.sin(W * Y)
-            return F
+        F = -B * W * np.sin(W * Y)
+        return F
+
         \end{verbatim}
 
         \subsubsection{Plot}
@@ -74,36 +78,37 @@
         \subsubsection{Code}
 
             \begin{verbatim}
+        
+    def gauss(s):
+        """ Gaussian kernel with scale s and dimensions s*6+1 by s*6+1  """
 
+        size = s * 3
+        x, y = np.meshgrid(np.arange(-size,size + 1), np.arange(-size,size + 1))
+        kernel = np.exp(-(x**2 / float(s) + y**2 / float(s)))
+        kernel = kernel / kernel.sum()
+        return x, y, kernel
 
-    \subsection{Plot kernel}
+            \end{verbatim}
 
-        %\begin{figure}
-        %  \centering
-        %  \subfloat[air1]{\includegraphics[width=0.3\textwidth]{../images/}}                
-        %  \caption{blah}
-        %\end{figure}
+    \subsection{Plot of kernel}
+
+        \begin{figure}
+          \centering
+          \includegraphics[width=0.5\textwidth]{../images/2_kernel3d}
+          \caption{Discretised 2D Gaussian kernel}
+        \end{figure}
 
     \subsection{Implement and time the Gaussian convolution}
 
-        %\begin{table}
-        %    \begin{tabular}{l l | *{10}{c}}
-        %
-        %              &Model&air2&bre1&air4&leds&air3&fire&star&air1&lbug&bre2\\  
-        %        Image &     &    &    &    &    &    &    &    &    &    &    \\ 
-        %        \hline
-        %        lbug  &     &0.06&0.10&0.02&0.09&0.06&0.07&0.09&0.03&1.00&0.13\\  
-        %        bre2  &     &0.27&0.28&0.09&0.15&0.22&0.19&0.16&0.04&0.11&1.00
-        %
-        %    \end{tabular}
-        %    \caption{RGB intersections within database}
-        %\end{table}
+        Note that the labels of the y-axis in the following histogram are of the
+        form \texttt{convolve(cameraman, gauss([nr])[2])} where
+        \texttt{gauss([nr])[2]} represents the Gaussian kernel for scale = [nr].
         
-        %\begin{figure}
-        %  \centering
-        %  \subfloat[air1]{\includegraphics[width=0.3\textwidth]{../images/}}                
-        %  \caption{blah}
-        %\end{figure}
+        \begin{figure}
+          \centering
+          \includegraphics[width=0.5\textwidth]{../images/3_time_gauss}
+          \caption{Timing of gauss() based convolution against s}
+        \end{figure}
 
 
 \section{Separable Gaussian convolution}
