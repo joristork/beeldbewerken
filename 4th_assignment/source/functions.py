@@ -58,7 +58,7 @@ def gauss(s):
     """ Gaussian kernel with scale s and dimensions s*6+1 by s*6+1  """
     size = s * 3
     x, y = np.meshgrid(np.arange(-size,size + 1), np.arange(-size,size + 1))
-    kernel = np.exp(-(x**2 / float(s) + y**2 / float(s)))
+    kernel = np.exp(-(x**2  + y**2 / float(s)))
     kernel = kernel / kernel.sum()
     
     return x, y, kernel
