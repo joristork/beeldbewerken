@@ -16,7 +16,7 @@ import os
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import numpy as np
-from functions import f, fx, fy, ffx, ffy, gauss, convolve, gauss1, gd, canny, plot_gauss
+from functions import *
 
 
 def analytical_local_structure():
@@ -28,12 +28,12 @@ def analytical_local_structure():
 
     """
 
+    os.system('clear')
+    print '\nAnalytical local structure exercises\n'
 
     x = np.arange(-100,101)
     y = np.arange(-100,101)
     Y, X = np.meshgrid(x,y)
-
-    print '\nAnalytical local structure exercises\n'
 
     print '\nSo, we\'re going to make F, a discrete version of function f.'
     raw_input('\nLet\'s have a look at the result:\n(Press enter)')
@@ -69,27 +69,26 @@ def gaussian_convolution():
     """
 
     """
-    x,y,z = gauss(4)
-    plot_gauss(x,y,z)
-    #print '\nGaussian convolution exercises\n'
+    os.system('clear')
+    print '\nGaussian convolution exercises\n'
 
-    #print '\nSo, we\'ve implemented a function gauss(s). Note:'
-    #print '\nSampling grid size: %d' % 1
-    #print '\nSum of kernel values: %d' % 1
-    #raw_input('\n(Press enter to continue)')
+    x, y, kernel = gauss(4)
 
-    #print '\nNow let\'s plot the kernel.'
-    #raw_input('\n(Press enter to continue)')
-    #plt.subplot(1,1,1)
-    #plt.imshow(image)
-    #plt.show()
+    print '\nSo, we\'ve implemented a function gauss(s). Note:'
+    print '\nSampling grid size: %d by %d' % kernel.shape
+    print '\nSum of kernel values: %d' % kernel.sum()
 
-    #print '\nNow we\'ll compute the Gaussian convolution...'
-    #print '\nLet\'s time our implementation and plot time against scale s:'
-    #raw_input('\n(Press enter)')
-    #plt.subplot(1,1,1)
-    #plt.imshow(image)
-    #plt.show()
+    print '\n\nNow let\'s plot the kernel.'
+    raw_input('\n(Press enter to continue)')
+    plot_3d(x, y, kernel)
+
+    print '\nNow we\'ll compute the Gaussian convolution...'
+    print '\nLet\'s time our implementation and plot time against scale s:'
+    s_range = (1, 2, 3, 5, 7, 9, 11, 15, 19)
+    print '\nValues for s: %s' % (s_range,)
+    raw_input('\n(Press enter)')
+
+    time_gauss_convolves(f, s_range)
 
     menu()
 
