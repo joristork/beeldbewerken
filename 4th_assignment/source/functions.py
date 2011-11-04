@@ -14,6 +14,7 @@ import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
 import mpl_toolkits.mplot3d.axes3d as plt3
 from performance_plotter import test_performance
+from cv import Filter2D
 
 
 def f(X,Y, A = 1, B = 2, V = (6 * np.pi / 201), W = (4 * np.pi / 201)):
@@ -51,11 +52,13 @@ def ffy(xx, yy):
 
 def gauss(s):
     """ Gaussian kernel with scale s and dimensions s*6+1 by s*6+1  """
-
     size = s * 3
     x, y = np.meshgrid(np.arange(-size,size + 1), np.arange(-size,size + 1))
     kernel = np.exp(-(x**2 / float(s) + y**2 / float(s)))
     kernel = kernel / kernel.sum()
+    
+    print kernel
+    
     return x, y, kernel
     
 
@@ -87,11 +90,28 @@ def time_gauss_convolves(f, s_range, mode='nearest'):
 
 def gauss1(s):
     """   """
-    x, y = np.meshgrid(np.arange(-size,size + 1), np.arange(-size,size + 1))
-    g = np.exp(-(x**2/float(size)+y**2/float(size)))
+    size = s * 3
+    
+    x = y = np.arange(-size, size + 1)
+    
+    ker_x = np.exp(-(x**2 / float(s)))
+    ker_x = ker_x / ker_x.sum()    
+    ker_y = np.array([[s] for s in ker_x])
 
+    return ker_x, ker_y
+    
+def time_gauss1_convolves(f, s_range, mode='nearest'):
+    """   """
 
-    pass
+    module = 'functions'
+    statements = []
+    functions = []
+    for s in s_range:
+        statements.append('gauss1(%d)' % s)
+        functions.append('gauss1')
+    test_performance(module, statements, functions, 20)
+
+    pass    
 
 
 def gd(f, s, iorder, jorder):
