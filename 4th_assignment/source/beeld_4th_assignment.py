@@ -16,6 +16,8 @@ import os
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import numpy as np
+from functions import f, fx, fy, gradient_vectors, gauss, convolve, gauss1
+from functions import gd, canny
 
 
 def analytical_local_structure():
@@ -28,20 +30,20 @@ def analytical_local_structure():
     print '\nSo, we\'re going to make F, a discrete version of function f.'
     raw_input('\nLet\'s have a look at the result:\n(Press enter)')
     plt.subplot(1,1,1)
-    plt.imshow(image)
+    plt.imshow(f())
     plt.show()
 
-    print '\nNow let\'s generate Fx and Fy: the discretised derivatives.'
-    raw_input('\nLet\'s have a look at the result:\n(Press enter)')
-    plt.subplot(1,1,1)
-    plt.imshow(image)
-    plt.show()
+    #print '\nNow let\'s generate Fx and Fy: the discretised derivatives.'
+    #raw_input('\nLet\'s have a look at the result:\n(Press enter)')
+    #plt.subplot(1,1,1)
+    #plt.imshow(image)
+    #plt.show()
 
-    print '\nNow we\'ll plot the gradient vectors on F'
-    raw_input('\nLet\'s have a look at the result:\n(Press enter)')
-    plt.subplot(1,1,1)
-    plt.imshow(image)
-    plt.show()
+    #print '\nNow we\'ll plot the gradient vectors on F'
+    #raw_input('\nLet\'s have a look at the result:\n(Press enter)')
+    #plt.subplot(1,1,1)
+    #plt.imshow(image)
+    #plt.show()
 
     menu()
 
@@ -51,25 +53,25 @@ def gaussian_convolution():
 
     """
 
-    print '\nGaussian convolution exercises\n'
+    #print '\nGaussian convolution exercises\n'
 
-    print '\nSo, we\'ve implemented a function gauss(s). Note:'
-    print '\nSampling grid size: %d' % 1
-    print '\nSum of kernel values: %d' % 1
-    raw_input('\n(Press enter to continue)')
+    #print '\nSo, we\'ve implemented a function gauss(s). Note:'
+    #print '\nSampling grid size: %d' % 1
+    #print '\nSum of kernel values: %d' % 1
+    #raw_input('\n(Press enter to continue)')
 
-    print '\nNow let\'s plot the kernel.'
-    raw_input('\n(Press enter to continue)')
-    plt.subplot(1,1,1)
-    plt.imshow(image)
-    plt.show()
+    #print '\nNow let\'s plot the kernel.'
+    #raw_input('\n(Press enter to continue)')
+    #plt.subplot(1,1,1)
+    #plt.imshow(image)
+    #plt.show()
 
-    print '\nNow we\'ll compute the Gaussian convolution...'
-    print '\nLet\'s time our implementation and plot time against scale s:'
-    raw_input('\n(Press enter)')
-    plt.subplot(1,1,1)
-    plt.imshow(image)
-    plt.show()
+    #print '\nNow we\'ll compute the Gaussian convolution...'
+    #print '\nLet\'s time our implementation and plot time against scale s:'
+    #raw_input('\n(Press enter)')
+    #plt.subplot(1,1,1)
+    #plt.imshow(image)
+    #plt.show()
 
     menu()
 
@@ -79,14 +81,14 @@ def separable_gaussian_convolution():
 
     """
 
-    print '\nSeparable Gaussian convolution exercises\n'
+    #print '\nSeparable Gaussian convolution exercises\n'
 
-    print '\nSo, we\'ve implemented a function gauss1.'
-    print '\nLet\'s time our implementation and plot against scale s.'
-    raw_input('\n(Press enter to continue)')
-    plt.subplot(1,1,1)
-    plt.imshow(image)
-    plt.show()
+    #print '\nSo, we\'ve implemented a function gauss1.'
+    #print '\nLet\'s time our implementation and plot against scale s.'
+    #raw_input('\n(Press enter to continue)')
+    #plt.subplot(1,1,1)
+    #plt.imshow(image)
+    #plt.show()
 
     menu()
 
@@ -96,14 +98,14 @@ def gaussian_derivatives():
 
     """
 
-    print '\nGaussian derivatives exercises\n'
+    #print '\nGaussian derivatives exercises\n'
 
-    print '\nSo, we\'ve implemented a function gD().'
-    print '\nLet\'s look at the 2-jet of the cameraman image.'
-    raw_input('\n(Press enter to continue)')
-    plt.subplot(1,1,1)
-    plt.imshow(image)
-    plt.show()
+    #print '\nSo, we\'ve implemented a function gD().'
+    #print '\nLet\'s look at the 2-jet of the cameraman image.'
+    #raw_input('\n(Press enter to continue)')
+    #plt.subplot(1,1,1)
+    #plt.imshow(image)
+    #plt.show()
 
     menu()
 
@@ -113,14 +115,14 @@ def canny_edge_detector():
 
     """
 
-    print '\nCanny edge detector exercise\n'
+    #print '\nCanny edge detector exercise\n'
 
-    print '\nSo, we\'ve implemented canny() function.'
-    print '\nLet\'s test it on the cameraman image and view the result.'
-    raw_input('\n(Press enter to continue)')
-    plt.subplot(1,1,1)
-    plt.imshow(image)
-    plt.show()
+    #print '\nSo, we\'ve implemented canny() function.'
+    #print '\nLet\'s test it on the cameraman image and view the result.'
+    #raw_input('\n(Press enter to continue)')
+    #plt.subplot(1,1,1)
+    #plt.imshow(image)
+    #plt.show()
 
     menu()
 
@@ -128,10 +130,12 @@ def menu():
     """ The main menu. ``fails''= number of invalid choices """
 
     print '\n --- MAIN MENU ---'
-    print '\n [1] Colour histogram, intersection exercise'
-    print '\n [2] As above, but with YUV colour model instead of RGB'
-    print '\n [3] Colour back projection exercise'
-    print '\n [4] Exit'
+    print '\n [1] Analytical local structure'
+    print '\n [2] Gaussian convolution'
+    print '\n [3] Separable Gaussian convolution'
+    print '\n [4] Gaussian derivatives'
+    print '\n [5] Canny edge detector'
+    print '\n [6] Exit'
     fails = 0
 
     def prompt(fails):
@@ -143,14 +147,16 @@ def menu():
     def router(choice, fails):
         """ Executes the desired choice, if it is valid """
         if choice == '1':
-            hist_inters_and_col_model_exercises('rgb', bins=(10,10,10))
+            analytical_local_structure()
         if choice == '2':
-            print '\n\n*** NB: Displayed image in false colour (not adjusted',
-            print 'to model) ***'
-            hist_inters_and_col_model_exercises('yuv', bins=(10,10,10))
+            gaussian_convolution()
         elif choice == '3':
-            colour_back_projection_exercise(bins = (5, 5, 5), model = 'rgb')
+            separable_gaussian_convolution()
         elif choice == '4':
+            gaussian_derivatives()
+        elif choice == '5':
+            canny_edge_detector()
+        elif choice == '6':
             print '\nGoodbye!\n'
             sys.exit(0)
         else:
@@ -170,5 +176,5 @@ def menu():
 
 
 if __name__ == "__main__":
-    print '\n*** Second assignment for Beeldbewerken (2011) ***\n'
+    print '\n*** Fourth assignment for Beeldbewerken (2011) ***\n'
     menu()

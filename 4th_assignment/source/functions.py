@@ -14,9 +14,17 @@ import matplotlib.image as mpimg
 
 
 def f():
-    """   """
-
-    pass
+    """ Discretisation of f. """
+    
+    x = np.arange(-100,101)
+    y = np.arange(-100,101)
+    Y, X = np.meshgrid(x,y)
+    A = 1
+    B = 2
+    V = 6 * np.pi / 201
+    W = 4 * np.pi / 201
+    F = A * np.sin(V * X) + B * np.cos(W * Y)
+    return F
 
 
 def fx():
