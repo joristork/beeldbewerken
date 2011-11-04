@@ -88,7 +88,7 @@ def gaussian_convolution():
     print '\nValues for s: %s' % (s_range,)
     raw_input('\n(Press enter)')
 
-    time_gauss_convolves(f, s_range)
+    time_gauss_convolves('cameraman', s_range)
 
     menu()
 
