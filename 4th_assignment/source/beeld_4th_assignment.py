@@ -21,6 +21,10 @@ from functions import f, fx, fy, ffx, ffy, gauss, convolve, gauss1, gd, canny
 
 def analytical_local_structure():
     """
+    Discretises a 2D periodic function and its partial derivatives in each
+    dimension, then uses the latter to derive component values for gradient
+    vectors of the former, before drawing a quiver plot of the gradient vectors
+    over a plot of the original function.
 
     """
 
@@ -35,19 +39,14 @@ def analytical_local_structure():
     raw_input('\nLet\'s have a look at the result:\n(Press enter)')
     plt.subplot(1,1,1)
     plt.imshow(f(X,Y))
-    plt.show()
-    
-
-    print '\nNow let\'s generate Fx and Fy: the discretised derivatives.'
-    raw_input('\nLet\'s have a look at the result:\n(Press enter)')
-    plt.subplot(1,1,1)
-    plt.imshow(fx(X,Y))
     plt.gray()
     plt.show()
-
+    
     print '\nNow let\'s generate Fx and Fy: the discretised derivatives.'
     raw_input('\nLet\'s have a look at the result:\n(Press enter)')
-    plt.subplot(1,1,1)
+    plt.subplot(1,2,1)
+    plt.imshow(fx(X,Y))
+    plt.subplot(1,2,2)
     plt.imshow(fy(X,Y))
     plt.gray()
     plt.show()
@@ -57,10 +56,10 @@ def analytical_local_structure():
     xx = np.arange(-100, 101, 10)
     yy = np.arange(-100, 101, 10)
     YY, XX = np.meshgrid(yy, xx)
-    plt.imshow(f())
-    plt.gray()
-    plt.quiver(yy, xx, ffy(XX,YY), - ffx(XX,YY), color = 'red')
     plt.subplot(1,1,1)
+    plt.imshow(f(X,Y))
+    plt.gray()
+    plt.quiver(yy+100, xx+100, ffy(XX,YY), - ffx(XX,YY), color = 'red')
     plt.show()
 
     menu()
