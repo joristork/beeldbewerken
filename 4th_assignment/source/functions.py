@@ -11,6 +11,8 @@ __author__ = "Joris Stork, Lucas Swartsenburg"
 
 import numpy as np
 import matplotlib.image as mpimg
+import matplotlib.pyplot as plt
+import mpl_toolkits.mplot3d.axes3d as d3
 
 
 def f(X,Y, A = 1, B = 2, V = (6 * np.pi / 201), W = (4 * np.pi / 201)):
@@ -48,10 +50,26 @@ def ffy(xx, yy):
 
 def gauss(s):
     """   """
-
-    pass
-
-
+    size = s              
+    #print size, sizey    
+    x, y = np.meshgrid(np.arange(-size,size + 1), np.arange(-size,size + 1))
+    g = np.exp(-(x**2/float(size)+y**2/float(size)))
+    
+    res = g / g.sum()
+    
+    return x, y, res
+    
+def plot_gauss(x,y,z):
+    """ """
+    fig=plt.figure()
+    ax = d3.Axes3D(fig)
+    ax.plot_wireframe(x,y,z)
+    ax.set_xlabel('x')
+    ax.set_ylabel('y')
+    ax.set_zlabel('z')
+    plt.show()
+    
+    
 def convolve(f, gauss, mode='nearest'):
     """   """
 

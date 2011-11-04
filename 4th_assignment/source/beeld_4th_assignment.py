@@ -16,7 +16,7 @@ import os
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import numpy as np
-from functions import f, fx, fy, ffx, ffy, gauss, convolve, gauss1, gd, canny
+from functions import f, fx, fy, ffx, ffy, gauss, convolve, gauss1, gd, canny, plot_gauss
 
 
 def analytical_local_structure():
@@ -69,7 +69,8 @@ def gaussian_convolution():
     """
 
     """
-
+    x,y,z = gauss(4)
+    plot_gauss(x,y,z)
     #print '\nGaussian convolution exercises\n'
 
     #print '\nSo, we\'ve implemented a function gauss(s). Note:'
