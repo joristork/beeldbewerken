@@ -28,7 +28,7 @@ def analytical_local_structure():
 
     """
 
-    os.system('clear')
+    os.system(['clear','cls'][os.name == 'nt'])
     print '\nAnalytical local structure exercises\n'
 
     x = np.arange(-100,101)
@@ -69,7 +69,7 @@ def gaussian_convolution():
     """
 
     """
-    os.system('clear')
+    os.system(['clear','cls'][os.name == 'nt'])
     print '\nGaussian convolution exercises\n'
 
     x, y, kernel = gauss(4)
@@ -148,6 +148,7 @@ def canny_edge_detector():
     menu()
 
 def menu():
+    os.system(['clear','cls'][os.name == 'nt'])
     """ The main menu. ``fails''= number of invalid choices """
 
     print '\n --- MAIN MENU ---'

@@ -20,34 +20,58 @@
             f_{xy} = 0 \nonumber \\
         \end{eqnarray}
 
-    \subsection{Discretise and plot $f(x,y)=A \sin(V x)+B \cos(W y)$}
+    \subsection{Discretise $f(x,y)=A \sin(V x)+B \cos(W y)$}
 
-        %\begin{figure}
-        %  \centering
-        %  \subfloat[air1]{\includegraphics[width=0.3\textwidth]{../images/}}                
-        %  \caption{blah}
-        %\end{figure}
+        \subsubsection{Code}
+        \begin{verbatim}
+        def f(X,Y, A = 1, B = 2, V = (6 * np.pi / 201), W = (4 * np.pi / 201)):
+            """ Discretisation of f. """
+            
+            F = A * np.sin(V * X) + B * np.cos(W * Y)
+            return F
+        \end{verbatim}
+
+        Plot is as in assignment description.
 
     \subsection{Generate images of $Fx$ and $Fy$}
 
-        %\begin{figure}
-        %  \centering
-        %  \subfloat[air1]{\includegraphics[width=0.3\textwidth]{../images/}}                
-        %  \caption{blah}
-        %\end{figure}
+        \subsubsection{Code}
+        \begin{verbatim}
+        def fx(X,Y, A = 1, B = 2, V = (6 * np.pi / 201), W = (4 * np.pi / 201)):
+            """  Discretisation of partial derivative of f wrt x. """
+            
+            F = A * V * np.cos(V * X)
+            return F
+
+
+        def fy(X,Y, A = 1, B = 2, V = (6 * np.pi / 201), W = (4 * np.pi / 201)):
+            """  Discretisation of partial derivative of f wrt y. """
+
+            F = -B * W * np.sin(W * Y)
+            return F
+        \end{verbatim}
+
+        \subsubsection{Plot}
+        \begin{figure}
+          \centering
+          \includegraphics[width=0.5\textwidth]{../images/0_fx_and_fy}
+          \caption{Fx and Fy}
+        \end{figure}
 
     \subsection{Plot gradient vectors}
 
-        %\begin{figure}
-        %  \centering
-        %  \subfloat[air1]{\includegraphics[width=0.3\textwidth]{../images/}}                
-        %  \caption{blah}
-        %\end{figure}
+        \begin{figure}
+          \centering
+          \includegraphics[width=0.5\textwidth]{../images/1_quiver}
+          \caption{Gradient vectors for F}
+        \end{figure}
 
 
 \section{Gaussian convolution}
 
     \subsection{Implement \texttt{gauss(s)} function}
+
+        \subsubsection{Code}
 
     \subsection{Plot kernel}
 
