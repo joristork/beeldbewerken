@@ -29,7 +29,7 @@ def test_performance(module, statements, functions, nr_calls):
     for statement in statements:
         results.append(timeit.Timer(statement, 
                 "from "+module+" import "+functions[i-1]).timeit(nr_calls))
-        print '---> '+statement[0:-1]+': %f' % results[i-1]
+        print '---> '+statement+': %f' % results[i-1]
         i += 1
 
     raw_input('\nA plot of performance results follows (press enter):')
