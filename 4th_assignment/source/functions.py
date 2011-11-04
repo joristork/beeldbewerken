@@ -60,8 +60,6 @@ def gauss(s):
     kernel = np.exp(-(x**2 / float(s) + y**2 / float(s)))
     kernel = kernel / kernel.sum()
     
-    print kernel
-    
     return x, y, kernel
     
 
@@ -104,19 +102,15 @@ def gauss1(s):
 
     return ker_x, ker_y
     
-def time_gauss1_convolves(f, s_range, mode='nearest'):
+def time_gauss1_convolves(f, s_range, m='nearest'):
     """   """
 
-    module = 'functions'
-    statements = []
-    functions = []
-    for s in s_range:
-        statements.append('gauss1(%d)' % s)
-        functions.append('gauss1')
-    test_performance(module, statements, functions, 20)
+    c = cameraman[:,:,0]
 
-    pass    
-
+    
+    ker_x, ker_y = gauss1(12)
+    
+    convolve1d(c,ker_x)
 
 def gd(f, s, iorder, jorder):
     """   """
@@ -139,3 +133,13 @@ def convolve(f, kernel, mode='nearest'):
     plt.gray()
     plt.show()
     return result
+    
+def convolve1d(f, ker_x, mode='nearest'):
+
+    newimage_x = scipy.ndimage.convolve1d(c,ker_x, axis=0, mode='nearest')    
+    newimage = scipy.ndimage.convolve1d(newimage_x,ker_x,axis=1, mode='nearest')
+    plt.imshow(newimage)
+    plt.gray()
+    plt.show()
+
+    return newimage
