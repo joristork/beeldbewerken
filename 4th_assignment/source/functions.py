@@ -104,13 +104,10 @@ def gauss1(s):
     
 def time_gauss1_convolves(f, s_range, m='nearest'):
     """   """
-
-    c = cameraman[:,:,0]
-
     
     ker_x, ker_y = gauss1(12)
     
-    convolve1d(c,ker_x)
+    convolve1d(cameraman,ker_x)
 
 def gd(f, s, iorder, jorder):
     """   """
@@ -124,15 +121,14 @@ def canny(f, s):
     pass
 
 
-def convolve(f, kernel, mode='nearest'):
+def convolve(f, kernel, m='nearest'):
     """   """
-    return scipy.ndimage.convolve(f, kernel)
+    return scipy.ndimage.convolve(f, kernel,mode=m)
 
     
-def convolve1d(f, ker_x, mode='nearest'):
-
-    newimage_x = scipy.ndimage.convolve1d(c,ker_x, axis=0, mode='nearest')    
-    newimage = scipy.ndimage.convolve1d(newimage_x,ker_x,axis=1, mode='nearest')
+def convolve1d(f, ker_x, m='nearest'):
+    newimage_x = scipy.ndimage.convolve1d(f,ker_x, axis=0, mode=m)    
+    newimage = scipy.ndimage.convolve1d(newimage_x,ker_x,axis=1, mode=m)
 
     return newimage
 
