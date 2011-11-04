@@ -16,8 +16,7 @@ import os
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import numpy as np
-from functions import f, fx, fy, gradient_vectors, gauss, convolve, gauss1
-from functions import gd, canny
+from functions import f, fx, fy, ffx, ffy, gauss, convolve, gauss1, gd, canny
 
 
 def analytical_local_structure():
@@ -39,11 +38,16 @@ def analytical_local_structure():
     #plt.imshow(image)
     #plt.show()
 
-    #print '\nNow we\'ll plot the gradient vectors on F'
-    #raw_input('\nLet\'s have a look at the result:\n(Press enter)')
-    #plt.subplot(1,1,1)
-    #plt.imshow(image)
-    #plt.show()
+    print '\nNow we\'ll plot the gradient vectors on F'
+    raw_input('\nLet\'s have a look at the result:\n(Press enter)')
+    xx = np.arange(-100, 101, 10)
+    yy = np.arange(-100, 101, 10)
+    YY, XX = np.meshgrid(yy, xx)
+    plt.imshow(f())
+    plt.gray()
+    plt.quiver(yy, xx, ffy(XX,YY), - ffx(XX,YY), color = 'red')
+    plt.subplot(1,1,1)
+    plt.show()
 
     menu()
 

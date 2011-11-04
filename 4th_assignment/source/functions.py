@@ -39,10 +39,16 @@ def fy():
     pass
 
 
-def gradient_vectors():
+def ffx(xx, yy):
     """   """
 
-    pass
+    return fx(xx, yy)
+
+
+def ffy(xx, yy):
+    """   """
+
+    return fy(xx, yy)
 
 
 def gauss(s):
