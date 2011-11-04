@@ -24,19 +24,33 @@ def analytical_local_structure():
 
     """
 
+
+    x = np.arange(-100,101)
+    y = np.arange(-100,101)
+    Y, X = np.meshgrid(x,y)
+
     print '\nAnalytical local structure exercises\n'
 
     print '\nSo, we\'re going to make F, a discrete version of function f.'
     raw_input('\nLet\'s have a look at the result:\n(Press enter)')
     plt.subplot(1,1,1)
-    plt.imshow(f())
+    plt.imshow(f(X,Y))
+    plt.show()
+    
+
+    print '\nNow let\'s generate Fx and Fy: the discretised derivatives.'
+    raw_input('\nLet\'s have a look at the result:\n(Press enter)')
+    plt.subplot(1,1,1)
+    plt.imshow(fx(X,Y))
+    plt.gray()
     plt.show()
 
-    #print '\nNow let\'s generate Fx and Fy: the discretised derivatives.'
-    #raw_input('\nLet\'s have a look at the result:\n(Press enter)')
-    #plt.subplot(1,1,1)
-    #plt.imshow(image)
-    #plt.show()
+    print '\nNow let\'s generate Fx and Fy: the discretised derivatives.'
+    raw_input('\nLet\'s have a look at the result:\n(Press enter)')
+    plt.subplot(1,1,1)
+    plt.imshow(fy(X,Y))
+    plt.gray()
+    plt.show()
 
     print '\nNow we\'ll plot the gradient vectors on F'
     raw_input('\nLet\'s have a look at the result:\n(Press enter)')

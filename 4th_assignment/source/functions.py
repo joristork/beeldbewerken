@@ -13,30 +13,25 @@ import numpy as np
 import matplotlib.image as mpimg
 
 
-def f():
+def f(X,Y, A = 1, B = 2, V = (6 * np.pi / 201), W = (4 * np.pi / 201)):
     """ Discretisation of f. """
     
-    x = np.arange(-100,101)
-    y = np.arange(-100,101)
-    Y, X = np.meshgrid(x,y)
-    A = 1
-    B = 2
-    V = 6 * np.pi / 201
-    W = 4 * np.pi / 201
     F = A * np.sin(V * X) + B * np.cos(W * Y)
     return F
 
 
-def fx():
-    """   """
-
-    pass
-
-
-def fy():
+def fx(X,Y, A = 1, B = 2, V = (6 * np.pi / 201), W = (4 * np.pi / 201)):
     """   """
     
-    pass
+    F = A * V * np.cos(V * X)
+    return F
+
+
+def fy(X,Y, A = 1, B = 2, V = (6 * np.pi / 201), W = (4 * np.pi / 201)):
+    """   """
+
+    F = -B * W * np.sin(W * Y)
+    return F
 
 
 def ffx(xx, yy):
