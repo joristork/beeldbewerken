@@ -114,7 +114,11 @@ def gaussian_derivatives():
     """
 
     """
-
+    ker_x, ker_y = gauss1(2)
+    
+    
+    
+    
     #print '\nGaussian derivatives exercises\n'
 
     #print '\nSo, we\'ve implemented a function gD().'

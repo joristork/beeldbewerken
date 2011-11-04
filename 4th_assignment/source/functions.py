@@ -91,6 +91,9 @@ def time_gauss_convolves(f, s_range, mode='nearest'):
 
 def gauss1(s):
     """   """
+    x, y = np.meshgrid(np.arange(-size,size + 1), np.arange(-size,size + 1))
+    g = np.exp(-(x**2/float(size)+y**2/float(size)))
+
 
     pass
 
