@@ -16,7 +16,8 @@ import scipy.ndimage
 import mpl_toolkits.mplot3d.axes3d as plt3
 from performance_plotter import test_performance
 
-cameraman = mpimg.imread('../images/cameraman.png')
+temp = mpimg.imread('../images/cameraman.png')
+cameraman = temp[:,:,0]
 
 
 def f(X,Y, A = 1, B = 2, V = (6 * np.pi / 201), W = (4 * np.pi / 201)):
@@ -81,10 +82,9 @@ def time_gauss_convolves(f, s_range, mode='nearest'):
     statements = []
     functions = []
     for s in s_range:
-        statements.append('convolve('+f+', gauss(%d))' % s)
-        print statements[-1]
+        statements.append('convolve('+f+', gauss(%d)[2])' % s)
         functions.append('convolve, gauss, cameraman')
-    test_performance(module, statements, functions, 4)
+    test_performance(module, statements, functions, 3)
 
     pass
 
@@ -113,9 +113,4 @@ def canny(f, s):
 def convolve(f, kernel, mode='nearest'):
     """   """
 
-    result = scipy.ndimage.convolve(f, kernel)
-    plt.subplot(1,1,1)
-    plt.imshow(result)
-    plt.gray()
-    plt.show()
-    return result
+    return scipy.ndimage.convolve(f, kernel)
