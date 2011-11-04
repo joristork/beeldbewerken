@@ -12,8 +12,11 @@ __author__ = "Joris Stork, Lucas Swartsenburg"
 import numpy as np
 import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
+import scipy.ndimage
 import mpl_toolkits.mplot3d.axes3d as plt3
 from performance_plotter import test_performance
+
+cameraman = mpimg.imread('../images/cameraman.png')
 
 
 def f(X,Y, A = 1, B = 2, V = (6 * np.pi / 201), W = (4 * np.pi / 201)):
@@ -78,9 +81,10 @@ def time_gauss_convolves(f, s_range, mode='nearest'):
     statements = []
     functions = []
     for s in s_range:
-        statements.append('gauss(%d)' % s)
-        functions.append('gauss')
-    test_performance(module, statements, functions, 20)
+        statements.append('convolve('+f+', gauss(%d))' % s)
+        print statements[-1]
+        functions.append('convolve, gauss, cameraman')
+    test_performance(module, statements, functions, 4)
 
     pass
 
@@ -102,3 +106,13 @@ def canny(f, s):
 
     pass
 
+
+def convolve(f, kernel, mode='nearest'):
+    """   """
+
+    result = scipy.ndimage.convolve(f, kernel)
+    plt.subplot(1,1,1)
+    plt.imshow(result)
+    plt.gray()
+    plt.show()
+    return result

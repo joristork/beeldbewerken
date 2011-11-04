@@ -12,6 +12,7 @@ __author__ = "Joris Stork, Lucas Swartsenburg"
 import timeit
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
 import beeld_4th_assignment
 import functions
 
@@ -27,6 +28,7 @@ def test_performance(module, statements, functions, nr_calls):
     print '(%d function calls)\n'%(nr_calls)
     i = 1
     for statement in statements:
+        print statement
         results.append(timeit.Timer(statement, 
                 "from "+module+" import "+functions[i-1]).timeit(nr_calls))
         print '---> '+statement+': %f' % results[i-1]
