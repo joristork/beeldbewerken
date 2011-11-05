@@ -139,8 +139,43 @@ def gaussian_derivatives():
     
     temp = mpimg.imread('../images/cameraman.png')
     cameraman = temp[:,:,0]    
-    plt.imshow(gd(cameraman, 1, 1, 1))
+    plt.subplot(3,3,1)
+    plt.imshow(gd(cameraman, 1, 0, 0))
     plt.gray()
+    
+    plt.subplot(3,3,2)
+    plt.imshow(gd(cameraman, 1, 0, 1))
+    plt.gray()    
+    
+    plt.subplot(3,3,3)
+    plt.imshow(gd(cameraman, 1, 0, 2))
+    plt.gray()  
+        
+    plt.subplot(3,3,4)
+    plt.imshow(gd(cameraman, 1, 1, 0))
+    plt.gray()  
+        
+    plt.subplot(3,3,5)
+    plt.imshow(gd(cameraman, 1, 1, 1))
+    plt.gray()      
+    
+    plt.subplot(3,3,6)
+    plt.imshow(gd(cameraman, 1, 1, 2))
+    plt.gray()
+    
+    plt.subplot(3,3,7)
+    plt.imshow(gd(cameraman, 1, 2, 0))
+    plt.gray()    
+    
+    plt.subplot(3,3,8)
+    plt.imshow(gd(cameraman, 1, 2, 1))
+    plt.gray()  
+        
+    plt.subplot(3,3,9)
+    plt.imshow(gd(cameraman, 1, 2, 2))
+    plt.gray()  
+ 
+    
     plt.show()
     
     
@@ -162,7 +197,9 @@ def canny_edge_detector():
     """
 
     """
-
+    temp = mpimg.imread('../images/cameraman.png')
+    cameraman = temp[:,:,0]    
+    canny(cameraman, 1)
     #print '\nCanny edge detector exercise\n'
 
     #print '\nSo, we\'ve implemented canny() function.'
