@@ -100,15 +100,31 @@
 
     \subsection{Implement and time the Gaussian convolution}
 
-        Note that the labels of the y-axis in the following histogram are of the
-        form \texttt{convolve(cameraman, gauss([nr])[2])} where
-        \texttt{gauss([nr])[2]} represents the Gaussian kernel for scale = [nr].
+        \subsubsection{code}
+
+            \begin{verbatim}
+
+
+
+
+            \end{verbatim}
+
+        \subsubsection{Function performance plot}
+
+            The plot in \ref{timing1} shows that the \texttt{gauss()}
+            implementation is in an exponential order of complexity. 
+
+            Note that the labels of the y-axis in the following histogram are of
+            the form \texttt{convolve(cameraman, gauss([nr])[2])} where
+            \texttt{gauss([nr])[2]} represents the Gaussian kernel for scale =
+            [nr].
         
-        \begin{figure}
-          \centering
-          \includegraphics[width=0.5\textwidth]{../images/3_time_gauss}
-          \caption{Timing of gauss() based convolution against s}
-        \end{figure}
+            \begin{figure}
+              \centering
+              \includegraphics[width=0.5\textwidth]{../images/3_time_gauss}
+              \caption{Timing of gauss() based convolution against s}
+              \label{timing1}
+            \end{figure}
 
 
 \section{Separable Gaussian convolution}
