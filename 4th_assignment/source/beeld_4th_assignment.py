@@ -67,8 +67,11 @@ def analytical_local_structure():
 
 def gaussian_convolution():
     """
+    Demonstrates our implementation of Gaussian convolution using a 2D Gaussian
+    kernel with scale (variance) s.
 
     """
+
     os.system(['clear','cls'][os.name == 'nt'])
     print '\nGaussian convolution exercises\n'
 
@@ -95,17 +98,19 @@ def gaussian_convolution():
 
 def separable_gaussian_convolution():
     """
+    Demonstrates our implementation of Gaussian convolution using the
+    separability property of the Gauss function.
 
     """
 
-    #print '\nSeparable Gaussian convolution exercises\n'
+    print '\nSeparable Gaussian convolution exercises\n'
 
-    #print '\nSo, we\'ve implemented a function gauss1.'
-    #print '\nLet\'s time our implementation and plot against scale s.'
-    #raw_input('\n(Press enter to continue)')
-    #plt.subplot(1,1,1)
-    #plt.imshow(image)
-    #plt.show()
+    print '\nSo, we\'ve implemented a function gauss1 (1D gauss kernels).'
+    print '\nLet\'s time our convolve implementation using gauss1() against s.'
+    raw_input('\n(Press enter to continue)')
+    plt.subplot(1,1,1)
+    plt.imshow(image)
+    plt.show()
 
     menu()
 
@@ -146,6 +151,7 @@ def canny_edge_detector():
     #plt.show()
 
     menu()
+
 
 def menu():
     os.system(['clear','cls'][os.name == 'nt'])
