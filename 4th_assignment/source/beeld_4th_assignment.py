@@ -139,7 +139,7 @@ def gaussian_derivatives():
     
     temp = mpimg.imread('../images/cameraman.png')
     cameraman = temp[:,:,0]    
-    plt.imshow(gd(cameraman, 1, 0, 0))
+    plt.imshow(gd(cameraman, 1, 1, 1))
     plt.gray()
     plt.show()
     
