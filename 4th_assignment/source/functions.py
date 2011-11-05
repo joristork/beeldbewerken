@@ -111,8 +111,29 @@ def time_gauss1_convolves(f, s_range, m='nearest'):
 
 def gd(f, s, iorder, jorder):
     """   """
-
-    pass
+    if iorder + jorder <= 2:
+        size = s * 3
+        x, y = np.meshgrid(np.arange(-size,size + 1), np.arange(-size,size + 1))
+        if iorder == 0 and jorder == 1:
+            ker = ((2*y)/float(s)) * np.exp(-(x**2  + y**2 / float(s))) 
+        elif iorder == 0 and jorder == 2:
+            ker = ((4*y**2 - 2*float(s))/float(s**2)) * np.exp(-(x**2  + y**2 / float(s))) 
+        elif iorder == 1 and jorder == 0:
+            ker = ((2*x)/float(s)) * np.exp(-(x**2  + y**2 / float(s))) 
+        elif iorder == 2 and jorder == 0:
+            ker = ((4*x**2 - 2*float(s))/float(s**2)) * np.exp(-(x**2  + y**2 / float(s)))            
+        elif iorder == 1 and jorder == 1:
+            ker = ((4*x*y)/float(s**2)) * np.exp(-(x**2  + y**2 / float(s)))        
+        elif iorder == 0 and jorder == 0:
+            ker = np.exp(-(x**2  + y**2 / float(s))) 
+            
+        return convolve(f, ker)
+            
+                                                
+    
+    else:
+        print "Invalid order"
+        return 0
 
 
 def canny(f, s):

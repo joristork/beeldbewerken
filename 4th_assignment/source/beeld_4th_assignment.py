@@ -119,7 +119,12 @@ def gaussian_derivatives():
     """
 
     """
-    ker_x, ker_y = gauss1(2)
+    
+    temp = mpimg.imread('../images/cameraman.png')
+    cameraman = temp[:,:,0]    
+    plt.imshow(gd(cameraman, 1, 0, 0))
+    plt.gray()
+    plt.show()
     
     
     
