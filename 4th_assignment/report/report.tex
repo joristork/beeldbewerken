@@ -10,7 +10,7 @@
 
 \section{Analytical local structure}
 
-    \subsection{Calculate derivatives of $f(x,y)=A \sin(V x)+B \cos(W y)$}
+    \subsection{Find derivatives of $f(x,y)=A \sin(V x)+B \cos(W y)$}
 
         \begin{eqnarray}
             f_{x} = A V \cos(V x) \nonumber \\ 
@@ -22,7 +22,10 @@
 
     \subsection{Discretise $f(x,y)=A \sin(V x)+B \cos(W y)$}
 
+        See assignment description for a plot of this function.
+
         \subsubsection{Code}
+
         \begin{verbatim}
         
     def f(X,Y, A = 1, B = 2, V = (6 * np.pi / 201), W = (4 * np.pi / 201)):
@@ -33,11 +36,19 @@
 
         \end{verbatim}
 
-        Plot is as in assignment description.
-
     \subsection{Generate images of $Fx$ and $Fy$}
 
+        See figure \ref{fx_fy} for the corresponding plots.
+
+        \begin{figure}
+          \centering
+          \includegraphics[width=0.5\textwidth]{../images/0_fx_and_fy}
+          \caption{Fx and Fy}
+          \label{fx_fy}
+        \end{figure}
+
         \subsubsection{Code}
+
         \begin{verbatim}
 
     def fx(X,Y, A = 1, B = 2, V = (6 * np.pi / 201), W = (4 * np.pi / 201)):
@@ -55,13 +66,6 @@
 
         \end{verbatim}
 
-        \subsubsection{Plot}
-        \begin{figure}
-          \centering
-          \includegraphics[width=0.5\textwidth]{../images/0_fx_and_fy}
-          \caption{Fx and Fy}
-        \end{figure}
-
     \subsection{Plot gradient vectors}
 
         \begin{figure}
@@ -75,6 +79,16 @@
 
     \subsection{Implement \texttt{gauss(s)} function}
 
+        See figure \ref{kernel} for a plot of the two dimensional kernel
+        obtained with \texttt{gauss()}
+
+        \begin{figure}
+          \centering
+          \includegraphics[width=0.5\textwidth]{../images/2_kernel3d}
+          \caption{Discretised 2D Gaussian kernel}
+          \label{kernel}
+        \end{figure}
+
         \subsubsection{Code}
 
             \begin{verbatim}
@@ -84,35 +98,41 @@
 
         size = s * 3
         x, y = np.meshgrid(np.arange(-size,size + 1), np.arange(-size,size + 1))
-        kernel = np.exp(-(x**2 / float(s) + y**2 / float(s)))
+        kernel = np.exp(-(x**2  + y**2 / float(s)))
         kernel = kernel / kernel.sum()
+        
         return x, y, kernel
 
             \end{verbatim}
 
-    \subsection{Plot of kernel}
+    \subsection{Implement and time the Gaussian convolution}
+
+        Figure \ref{gaussblur} shows an image before an after applying this
+        implementation of Gaussian blur.
 
         \begin{figure}
           \centering
-          \includegraphics[width=0.5\textwidth]{../images/2_kernel3d}
-          \caption{Discretised 2D Gaussian kernel}
+          \includegraphics[width=0.5\textwidth]{../images/gauss2d}
+          \caption{Image convolved with \texttt{gauss(4)} kernel}
+          \label{gaussblur}
         \end{figure}
 
-    \subsection{Implement and time the Gaussian convolution}
-
-        \subsubsection{code}
+        \subsubsection{Code}
 
             \begin{verbatim}
 
+    def convolve(f, kernel, m='nearest'):
+        """ Wrapper for scipy's convolve(). Useful for the timeit function. """
 
-
+        return scipy.ndimage.convolve(f, kernel, mode=m)
 
             \end{verbatim}
 
         \subsubsection{Function performance plot}
 
-            The plot in \ref{timing1} shows that the \texttt{gauss()}
-            implementation is in an exponential order of complexity. 
+            The plot in figure \ref{timing1} shows that this implementation, based on a
+            2D Gauss kernel from \texttt{gauss()} is in exponential time
+            complexity. 
 
             Note that the labels of the y-axis in the following histogram are of
             the form \texttt{convolve(cameraman, gauss([nr])[2])} where
@@ -131,7 +151,65 @@
 
     \subsection{Implement \texttt{gauss1()} function}
 
+        \subsubsection{Code}
+
+            \begin{verbatim}
+
+    def gauss1(s):
+        """ Returns 1D Gaussian kernel, for separable Gaussian convolution """
+
+        size = s * 3
+        
+        x = y = np.arange(-size, size + 1)
+        
+        ker_x = np.exp(-(x**2 / float(s)))
+        return ker_x / ker_x.sum()    
+
+            \end{verbatim}
+
     \subsection{Obtain Gaussian convolution}
+
+        Figure \ref{gauss1blur} shows an image before an after applying this
+        implementation of Gaussian blur.
+
+        \begin{figure}
+          \centering
+          \includegraphics[width=0.5\textwidth]{../images/gauss1d}
+          \caption{Image convolved with 1-D kernel from \texttt{gauss1(4)}}
+          \label{gauss1blur}
+        \end{figure}
+
+        \subsubsection{Code}
+
+            \begin{verbatim}
+
+    def convolve1d(f, kernel1d, m='nearest'):
+        """ Convolves along one axis, then along the other. """
+
+        newimage_x = scipy.ndimage.convolve1d(f, kernel1d, axis = 0, mode = m)    
+        newimage = scipy.ndimage.convolve1d(newimage_x, kernel1d, axis = 1, mode = m)
+
+        return newimage
+
+            \end{verbatim}
+
+        \subsubsection{Function performance plot}
+
+            The plot in figure \ref{timing2} indicates that the seperable Gauss
+            convolution implementation based on \texttt{gauss1()} is in linear
+            time complexity. 
+
+            Note that the labels of the y-axis in the following histogram are of
+            the form \texttt{convolve1d(cameraman, gauss1([nr]))} where
+            \texttt{gauss1([nr])} represents the 1D Gaussian kernel for scale =
+            [nr].
+        
+            \begin{figure}
+              \centering
+              \includegraphics[width=0.5\textwidth]{../images/4_time_gauss1}
+              \caption{Timing of gauss() based convolution against s}
+              \label{timing2}
+            \end{figure}
 
 
 \section{Gaussian derivatives}

@@ -56,6 +56,7 @@ def ffy(xx, yy):
 
 def gauss(s):
     """ Gaussian kernel with scale s and dimensions s*6+1 by s*6+1  """
+
     size = s * 3
     x, y = np.meshgrid(np.arange(-size,size + 1), np.arange(-size,size + 1))
     kernel = np.exp(-(x**2  + y**2 / float(s)))
@@ -77,7 +78,7 @@ def plot_3d(x, y, z):
     
     
 def time_gauss_convolves(f, s_range, mode='nearest'):
-    """   """
+    """ Calls timing function for convolution using gauss() """
 
     module = 'functions'
     statements = []
@@ -87,27 +88,30 @@ def time_gauss_convolves(f, s_range, mode='nearest'):
         functions.append('convolve, gauss, cameraman')
     test_performance(module, statements, functions, 3)
 
-    pass
-
 
 def gauss1(s):
-    """   """
+    """ Returns 1D Gaussian kernel, for separable Gaussian convolution """
+
     size = s * 3
     
     x = y = np.arange(-size, size + 1)
     
     ker_x = np.exp(-(x**2 / float(s)))
-    ker_x = ker_x / ker_x.sum()    
-    ker_y = np.array([[s] for s in ker_x])
+    return ker_x / ker_x.sum()    
+    #ker_y = np.array([[s] for s in ker_x])
 
-    return ker_x, ker_y
-    
+ 
 def time_gauss1_convolves(f, s_range, m='nearest'):
-    """   """
+    """ Calls timing function for convolution using gauss1() """
     
-    ker_x, ker_y = gauss1(12)
-    
-    convolve1d(cameraman,ker_x)
+    module = 'functions'
+    statements = []
+    functions = []
+    for s in s_range:
+        statements.append('convolve1d('+f+', gauss1(%d))' % s)
+        functions.append('convolve1d, gauss1, cameraman')
+    test_performance(module, statements, functions, 3)
+
 
 def gd(f, s, iorder, jorder):
     """   """
@@ -122,14 +126,15 @@ def canny(f, s):
 
 
 def convolve(f, kernel, m='nearest'):
-    """   """
+    """ Wrapper for scipy's convolve(). Useful for the timeit function. """
+
     return scipy.ndimage.convolve(f, kernel,mode=m)
 
     
-def convolve1d(f, ker_x, m='nearest'):
-    newimage_x = scipy.ndimage.convolve1d(f,ker_x, axis=0, mode=m)    
-    newimage = scipy.ndimage.convolve1d(newimage_x,ker_x,axis=1, mode=m)
+def convolve1d(f, kernel1d, m='nearest'):
+    """ Convolves along one axis, then along the other. """
+
+    newimage_x = scipy.ndimage.convolve1d(f, kernel1d, axis = 0, mode = m)    
+    newimage = scipy.ndimage.convolve1d(newimage_x, kernel1d, axis = 1, mode = m)
 
     return newimage
-
-

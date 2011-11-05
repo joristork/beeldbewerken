@@ -80,6 +80,13 @@ def gaussian_convolution():
     print '\nSo, we\'ve implemented a function gauss(s). Note:'
     print '\nSampling grid size: %d by %d' % kernel.shape
     print '\nSum of kernel values: %d' % kernel.sum()
+    print '\nLet\'s have a look at our image pre- and post-convolution'
+    plt.subplot(1,2,1)
+    plt.imshow(cameraman)
+    plt.gray()
+    plt.subplot(1,2,2)
+    plt.imshow(convolve(cameraman, gauss(4)[2]))
+    plt.show()
 
     print '\n\nNow let\'s plot the kernel.'
     raw_input('\n(Press enter to continue)')
@@ -103,14 +110,24 @@ def separable_gaussian_convolution():
 
     """
 
+    os.system(['clear','cls'][os.name == 'nt'])
     print '\nSeparable Gaussian convolution exercises\n'
 
-    print '\nSo, we\'ve implemented a function gauss1 (1D gauss kernels).'
-    print '\nLet\'s time our convolve implementation using gauss1() against s.'
-    raw_input('\n(Press enter to continue)')
-    plt.subplot(1,1,1)
-    plt.imshow(image)
+    print '\nSo, we\'ve implemented a function gauss1() (1D Gauss kernel).'
+    print '\nLet\'s have a look at our image pre- and post-convolution'
+    plt.subplot(1,2,1)
+    plt.imshow(cameraman)
+    plt.gray()
+    plt.subplot(1,2,2)
+    plt.imshow(convolve1d(cameraman, gauss1(4)))
     plt.show()
+
+    print '\nNow, let\'s time our convolve, using gauss1(), against s.'
+    s_range = (1, 2, 3, 5, 7, 9, 11, 15, 19)
+    print '\nValues for s: %s' % (s_range,)
+    raw_input('\n(Press enter to continue)')
+
+    time_gauss1_convolves('cameraman', s_range)
 
     menu()
 
