@@ -153,7 +153,27 @@ def gd(f, s, iorder, jorder):
 def canny(f, s):
     """   """
     img = gd(f, s, 0, 1)
-    print img
+    
+    for y in xrange(len(img)-2):
+        for x in xrange(len(img[0])-2):
+            if (img[y-1][x-1] > 0 and img[y+1][x-1] < 0) or \
+            (img[y-1][x] > 0 and img[y+1][x] < 0) or \
+            (img[y-1][x+1] > 0 and img[y+1][x+1] < 0) or \
+            (img[y-1][x-1] < 0 and img[y+1][x-1] > 0) or \
+            (img[y-1][x] < 0 and img[y+1][x] > 0) or \
+            (img[y-1][x+1] < 0 and img[y+1][x+1] > 0) or \
+            (img[y-1][x-1] > 0 and img[y-1][x+1] < 0) or \
+            (img[y][x-1] > 0 and img[y][x+1] < 0) or \
+            (img[y+1][x-1] > 0 and img[y+1][x+1] < 0) or \
+            (img[y-1][x-1] < 0 and img[y-1][x+1] > 0) or \
+            (img[y][x-1] < 0 and img[y][x+1] > 0) or \
+            (img[y-1][x-1] < 0 and img[y+1][x+1] > 0):
+                img[y][x] = 1
+            else:
+                img[y][x] = 0
+
+    
+    
     
     plt.imshow(img)
     plt.gray()
