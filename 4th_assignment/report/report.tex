@@ -215,6 +215,34 @@
 \section{Gaussian derivatives}
 
     \subsection{Show that derivatives of 2d Gauss function are separable}
+    
+    The general 1d Gaussian functions has the form 
+    $ f(x) = a e^{- { \frac{(x-b)^2 }{ 2 c^2} } } $ 
+    and the general 2d function has the form 
+    $ f(x,y) = a e^{- \left(\frac{(x-x_o)^2}{2\sigma_x^2} + \frac{(y-y_o)^2}{2\sigma_y^2} \right)} $. 
+    We use the 1d Guassian function with a = 1, b = 0, and $ 2\sigma_x^2 = s $ and
+    we use the 2d Gaussian funtion with a = 1, $ x_0 = y_0 = 0 $ and $ 2\sigma_x^2 = s $.\\
+    \\
+    In the Separable Gaussian convolution section we have shown that we can express the
+    2d convolution as a multiplication of the two 1d convolutions. With this 
+    basis, we can show that the all derivatives are of the the 
+    same form, but with different constants since we are deriving an exponential
+    function. This is import because the derivative of $e^x$ is $e^x$. This 
+    means that the function continues to be a Gaussian function no matter how
+    many times and no matter over witch dimension we derive. \\
+    \\
+    To show this we derive our Gaussian function analytically in both dimensions 
+    up to the second order.\\
+    \begin{align*}
+    &f(x,y)   =  e^{ (-\frac{(x)^2 +(y)^2}{s})} \\
+    &f(x,y)_x =  \frac{2x}{s} e^{ (-\frac{(x)^2 +(y)^2}{s}))} \\
+    &f(x,y)_y = \frac{2y}{s} e^{ ( -\frac{(x)^2 +(y)^2}{s}))} \\
+    &f(x,y)_{xx} =  \frac{4x^2-2s}{s^2} e^{ (-\frac{(x)^2 +(y)^2}{s}))} \\
+    &f(x,y)_{yy} =  \frac{4y^2-2s}{s^2} e^{ (-\frac{(x)^2 +(y)^2}{s}))} \\
+    &f(x,y)_{xy} =  \frac{4xy}{s^2} e^{ (-\frac{(x)^2 +(y)^2}{s}))}
+    \end{align*}
+    
+    
 
     \subsection{Implement \texttt{gD(F, s, iorder, jorder)} function}
 
